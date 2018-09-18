@@ -1,0 +1,93 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$user_id": {
+        ".read": "$user_id === auth.uid",
+        ".write": "$user_id === auth.uid",
+        "accounts": {
+          "$account_id": {
+            ".validate": "newData.hasChildren(['name'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "subjects": {
+          "$subject_id": {
+            ".validate": "newData.hasChildren(['name'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "transactions": {
+          "$transaction_id": {
+            ".validate": "newData.hasChildren(['type', 'account', 'toAccount', 'subject', 'amount', 'createdAt', 'notes'])",
+            "type": {
+              ".validate": "newData.isNumber()"
+            },
+            "account": {
+              ".validate": "newData.hasChildren(['id', 'name'])",
+              "id": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "name": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+            "ToAccount": {
+              ".validate": "newData.hasChildren(['id', 'name'])",
+              "id": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "name": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+            "subject": {
+              ".validate": "newData.hasChildren(['id', 'name'])",
+              "id": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "name": {
+                ".validate": "newData.isString() && newData.val().length > 0"
+              },
+              "$other": {
+                ".validate": false
+              }
+            },
+            "amount": {
+              ".validate": "newData.isNumber()"
+            },
+            "createdAt": {
+              ".validate": "newData.isNumber()"
+            },
+            "notes": {
+              ".validate": "newData.isString()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}
