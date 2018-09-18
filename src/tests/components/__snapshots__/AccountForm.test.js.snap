@@ -1,0 +1,210 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render account form correctly 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Add
+         Account
+      </h2>
+    </div>
+  </div>
+  <form
+    className="form content-container"
+    onSubmit={[Function]}
+  >
+    <input
+      className="text-input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <div>
+      <button
+        className="button form__action"
+      >
+        Save Account
+      </button>
+      <button
+        className="button form__action button--secondary"
+        onClick={[Function]}
+      >
+        Remove Account
+      </button>
+    </div>
+  </form>
+  <ConfirmModal
+    id="confirmModal"
+    isOpen={false}
+    messageBody="Are you sure you want to remove this item?"
+    messageTitle="Remove Account!"
+    onModalClose={[Function]}
+    onModalOk={[Function]}
+  />
+</div>
+`;
+
+exports[`should render account form with expense data 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Add
+         Account
+      </h2>
+    </div>
+  </div>
+  <form
+    className="form content-container"
+    onSubmit={[Function]}
+  >
+    <input
+      className="text-input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <div>
+      <button
+        className="button form__action"
+      >
+        Save Account
+      </button>
+      <button
+        className="button form__action button--secondary"
+        onClick={[Function]}
+      >
+        Remove Account
+      </button>
+    </div>
+  </form>
+  <ConfirmModal
+    id="confirmModal"
+    isOpen={false}
+    messageBody="Are you sure you want to remove this item?"
+    messageTitle="Remove Account!"
+    onModalClose={[Function]}
+    onModalOk={[Function]}
+  />
+</div>
+`;
+
+exports[`should render error for invalid form submission 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Add
+         Account
+      </h2>
+    </div>
+  </div>
+  <form
+    className="form content-container"
+    onSubmit={[Function]}
+  >
+    <input
+      className="text-input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <div>
+      <button
+        className="button form__action"
+      >
+        Save Account
+      </button>
+      <button
+        className="button form__action button--secondary"
+        onClick={[Function]}
+      >
+        Remove Account
+      </button>
+    </div>
+  </form>
+  <ConfirmModal
+    id="confirmModal"
+    isOpen={false}
+    messageBody="Are you sure you want to remove this item?"
+    messageTitle="Remove Account!"
+    onModalClose={[Function]}
+    onModalOk={[Function]}
+  />
+</div>
+`;
+
+exports[`should render error for invalid form submission 2`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Add
+         Account
+      </h2>
+    </div>
+  </div>
+  <form
+    className="form content-container"
+    onSubmit={[Function]}
+  >
+    <div
+      className="form__error"
+    >
+      Please enter a name!
+    </div>
+    <input
+      className="text-input"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <div>
+      <button
+        className="button form__action"
+      >
+        Save Account
+      </button>
+      <button
+        className="button form__action button--secondary"
+        onClick={[Function]}
+      >
+        Remove Account
+      </button>
+    </div>
+  </form>
+  <ConfirmModal
+    id="confirmModal"
+    isOpen={false}
+    messageBody="Are you sure you want to remove this item?"
+    messageTitle="Remove Account!"
+    onModalClose={[Function]}
+    onModalOk={[Function]}
+  />
+</div>
+`;

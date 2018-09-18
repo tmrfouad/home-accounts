@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render AccountList with accounts correctly 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Accounts
+      </h2>
+      <div
+        className="page-header__actions"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/accountform"
+        >
+          Add Account
+        </Link>
+      </div>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <div
+      className="list-header"
+    >
+      <div>
+        Name
+      </div>
+    </div>
+    <div
+      className="list-body"
+    >
+      <AccountListItem
+        id="1"
+        key="1"
+        name="Account 1"
+      />
+      <AccountListItem
+        id="2"
+        key="2"
+        name="Account 2"
+      />
+      <AccountListItem
+        id="3"
+        key="3"
+        name="Account 3"
+      />
+      <AccountListItem
+        id="4"
+        key="4"
+        name="Account 4"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render AccountList without accounts correctly 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Accounts
+      </h2>
+      <div
+        className="page-header__actions"
+      >
+        <Link
+          className="button"
+          replace={false}
+          to="/accountform"
+        >
+          Add Account
+        </Link>
+      </div>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <div
+      className="list-header"
+    >
+      <div>
+        Name
+      </div>
+    </div>
+    <div
+      className="list-body"
+    >
+      <div
+        className="list-item list-item--message"
+      >
+        <span>
+          No Accounts
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

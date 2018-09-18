@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render AccountListItem correctly 1`] = `
+<Link
+  className="list-item"
+  replace={false}
+  to="/accountform/1"
+>
+  <div>
+    <h3
+      className="list-item__title"
+    >
+      Account 1
+    </h3>
+  </div>
+</Link>
+`;

@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should rnder AddExpensePage correctly 1`] = `
+<div>
+  <div
+    className="page-header"
+  >
+    <div
+      className="content-container"
+    >
+      <h2
+        className="page-header__title"
+      >
+        Add Expense
+      </h2>
+    </div>
+  </div>
+  <div
+    className="content-container"
+  >
+    <Connect(ExpenseForm)
+      id="expenseForm"
+      onSubmit={[Function]}
+    />
+  </div>
+</div>
+`;
