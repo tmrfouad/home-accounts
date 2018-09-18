@@ -1,11 +1,11 @@
 import React from 'react';
 import { Router, Switch } from 'react-router-dom';
 import LoginPage from '../components/LoginPage';
-import ExpenseDashbourdPage from '../components/ExpenseDashbourdPage';
-import AccountsPage from '../components/AccountsPage';
-import AccountForm from '../components/AccountForm';
-import AddExpensePage from '../components/AddExpensePage';
-import EditExpensePage from '../components/EditExpensePage';
+import ExpenseDashbourdPage from '../components/expenses/ExpenseDashbourdPage';
+import AccountsPage from '../components/accounts/AccountsPage';
+import AccountForm from '../components/accounts/AccountForm';
+import AddExpensePage from '../components/expenses/AddExpensePage';
+import EditExpensePage from '../components/expenses/EditExpensePage';
 import PublicRoute from './PublicRoute';
 import NotFoundPage from '../components/NotFoundPage';
 import createHistory from 'history/createBrowserHistory';

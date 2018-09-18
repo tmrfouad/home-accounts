@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import accounts from '../fixtures/accounts';
-import AccountListItem from '../../components/AccountListItem';
+import AccountListItem from '../../components/accounts/AccountListItem';
 
 test('should render AccountListItem correctly', () => {
   const wrapper = shallow(

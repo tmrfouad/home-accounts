@@ -1,4 +1,4 @@
-import ExpenseDashbourdPage from '../../components/ExpenseDashbourdPage';
+import ExpenseDashbourdPage from '../../components/expenses/ExpenseDashbourdPage';
 import React from 'react';
 import { shallow } from 'enzyme';
 

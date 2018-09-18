@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AccountForm } from '../../components/AccountForm';
+import { AccountForm } from '../../components/accounts/AccountForm';
 import accounts from '../fixtures/accounts';
 
 let wrapper, startAddAccount, startEditAccount, startRemoveAccount, history;

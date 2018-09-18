@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ExpenseForm } from '../../components/ExpenseForm';
+import { ExpenseForm } from '../../components/expenses/ExpenseForm';
 import expenses from '../fixtures/expenses';
 import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';

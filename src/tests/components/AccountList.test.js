@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { AccountList } from '../../components/AccountList';
+import { AccountList } from '../../components/accounts/AccountList';
 import accounts from '../fixtures/accounts';
 
 test('should render AccountList without accounts correctly', () => {

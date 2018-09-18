@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExpensesSummary } from '../../components/ExpensesSummary';
+import { ExpensesSummary } from '../../components/expenses/ExpensesSummary';
 import { shallow } from 'enzyme';
 
 test('should render ExpensesSummary correctly', () => {

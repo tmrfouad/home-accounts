@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { defaultFilters, altFilters } from '../fixtures/filters';
-import { ExpenseListFilters } from '../../components/ExpenseListFilters';
+import { ExpenseListFilters } from '../../components/expenses/ExpenseListFilters';
 import moment from 'moment';
 import { DateRangePicker } from 'react-dates';
 
