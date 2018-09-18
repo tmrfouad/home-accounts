@@ -32,7 +32,7 @@
           "$transaction_id": {
             ".validate": "newData.hasChildren(['type', 'account', 'toAccount', 'subject', 'amount', 'createdAt', 'notes'])",
             "type": {
-              ".validate": "newData.isNumber()"
+              ".validate": "newData.isNumber() && (newData.val() === 0 || newData.val() === 1 || newData.val() === 2)"
             },
             "account": {
               ".validate": "newData.hasChildren(['id', 'name'])",
