@@ -2,6 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import expensesReducer from '../reducers/expenses';
 import filtersReducer from '../reducers/filters';
+import transactionsReducer from '../reducers/transactions';
+import transactionFiltersReducer from '../reducers/transaction-filters';
 import authReducer from '../reducers/auth';
 import accountsRducer from '../reducers/accounts';
 
@@ -12,6 +14,8 @@ export default () => {
     combineReducers({
       expenses: expensesReducer,
       filters: filtersReducer,
+      transactions: transactionsReducer,
+      transactionFilters: transactionFiltersReducer,
       auth: authReducer,
       accounts: accountsRducer
     }),
