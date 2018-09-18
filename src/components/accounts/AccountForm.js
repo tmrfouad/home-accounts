@@ -76,6 +76,7 @@ export class AccountForm extends React.Component {
           <input
             type="text"
             className="text-input"
+            autoFocus
             value={this.state.name}
             onChange={this.onNameChange}
           />
