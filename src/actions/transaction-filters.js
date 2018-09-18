@@ -38,4 +38,4 @@ export const setTextFilter = (text = '') => ({
 });
 
 // TRANS_SORT_BY
-export const sortBy = sortField => ({ type: 'TRANS_SORT_BY_DATE', sortField });
+export const sortBy = sortBy => ({ type: 'TRANS_SORT_BY', sortBy });
