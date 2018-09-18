@@ -26,7 +26,10 @@ export const TransactionList = props => (
 
 const mapStateToProps = state => {
   return {
-    transactions: selectTransactions(state.transactions, state.filters)
+    transactions: selectTransactions(
+      state.transactions,
+      state.transactionFilters
+    )
   };
 };
 

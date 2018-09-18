@@ -35,7 +35,7 @@ export const TransactionsSummary = ({
 const mapStateToProps = state => {
   const visibleTransactions = selectTransactions(
     state.transactions,
-    state.filters
+    state.transactionFilters
   );
   const hiddenTransactionsCount =
     state.transactions.length - visibleTransactions.length;
