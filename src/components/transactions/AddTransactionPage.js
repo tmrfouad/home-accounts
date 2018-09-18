@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 export class AddTransactionPage extends React.Component {
   onSubmit = transaction => {
     this.props.startAddTransaction(transaction);
-    this.props.history.push('/');
+    this.props.history.push('/transactions');
   };
   render() {
     return (

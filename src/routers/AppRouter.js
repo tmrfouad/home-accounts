@@ -2,6 +2,9 @@ import React from 'react';
 import { Router, Switch } from 'react-router-dom';
 import LoginPage from '../components/LoginPage';
 import ExpenseDashbourdPage from '../components/expenses/ExpenseDashbourdPage';
+import TransactionDashbourdPage from '../components/transactions/TransactionDashbourdPage';
+import AddTransactionPage from '../components/transactions/AddTransactionPage';
+import EditTransactionPage from '../components/transactions/EditTransactionPage';
 import AccountsPage from '../components/accounts/AccountsPage';
 import AccountForm from '../components/accounts/AccountForm';
 import AddExpensePage from '../components/expenses/AddExpensePage';
@@ -21,6 +24,12 @@ const AppRouter = () => (
         <PrivateRoute path="/dashboard" component={ExpenseDashbourdPage} />
         <PrivateRoute path="/create" component={AddExpensePage} />
         <PrivateRoute path="/edit/:id" component={EditExpensePage} />
+        <PrivateRoute
+          path="/transactions"
+          component={TransactionDashbourdPage}
+        />
+        <PrivateRoute path="/transcreate" component={AddTransactionPage} />
+        <PrivateRoute path="/transedit/:id" component={EditTransactionPage} />
         <PrivateRoute path="/accounts" component={AccountsPage} />
         <PrivateRoute path="/accountform/:id" component={AccountForm} />
         <PrivateRoute path="/accountform" component={AccountForm} />

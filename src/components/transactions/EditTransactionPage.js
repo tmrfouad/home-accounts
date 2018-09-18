@@ -1,6 +1,6 @@
 import React from 'react';
 import TransactionForm from './TransactionForm';
-import ConfirmModal from './ConfirmModal';
+import ConfirmModal from './../ConfirmModal';
 import {
   startEditTransaction,
   startRemoveTransaction
@@ -17,12 +17,12 @@ export class EditTransactionPage extends React.Component {
 
   onSubmit = exp => {
     this.props.startEditTransaction(this.props.transaction.id, exp);
-    this.props.history.push('/');
+    this.props.history.push('/transactions');
   };
 
   onRemoveTransaction = () => {
     this.props.startRemoveTransaction(this.props.transaction.id);
-    this.props.history.push('/');
+    this.props.history.push('/transactions');
   };
 
   openRemoveTransactionDialog = () => {

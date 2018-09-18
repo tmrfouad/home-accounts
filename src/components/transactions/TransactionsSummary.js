@@ -24,7 +24,7 @@ export const TransactionsSummary = ({
         </h4>
       )}
       <div className="page-header__actions">
-        <Link className="button" to="/create">
+        <Link className="button" to="/transcreate">
           Add Transaction
         </Link>
       </div>
