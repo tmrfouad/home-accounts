@@ -1,4 +1,5 @@
 import database from '../firebase/firebase';
+import TransactionType from '../enums/TransactionType';
 
 // ADD_TRANSACTION
 export const addTransaction = transaction => ({
@@ -10,7 +11,7 @@ export const startAddTransaction = (transactionData = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
     const {
-      type = 0,
+      type = TransactionType.out,
       account = {
         id: '',
         name: ''
@@ -19,7 +20,10 @@ export const startAddTransaction = (transactionData = {}) => {
         id: '',
         name: ''
       },
-      subject = '',
+      subject = {
+        id: '',
+        name: ''
+      },
       amount = 0,
       createdAt = 0,
       notes = ''
