@@ -8,15 +8,6 @@ export class TransactionForm extends React.Component {
   constructor(props) {
     super(props);
     const transaction = props.transaction;
-    const transactionTypes = [];
-    for (let k in TransactionType) {
-      if (TransactionType.hasOwnProperty(k)) {
-        const id = TransactionType[k];
-        const name = k;
-        transactionTypes.push({ id, name });
-      }
-    }
-
     this.state = {
       type: transaction ? transaction.type : TransactionType.out,
       account: transaction
@@ -42,8 +33,7 @@ export class TransactionForm extends React.Component {
       notes: transaction ? transaction.notes : '',
       createdAtFocused: false,
       error: '',
-      mode: transaction ? 'edit' : 'add',
-      transactionTypes
+      mode: transaction ? 'edit' : 'add'
     };
   }
 
@@ -212,9 +202,21 @@ export class TransactionForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  accounts: state.accounts,
-  subjects: state.subjects
-});
+const mapStateToProps = state => {
+  const transactionTypes = [];
+  for (let k in TransactionType) {
+    if (TransactionType.hasOwnProperty(k)) {
+      const id = TransactionType[k];
+      const name = k;
+      transactionTypes.push({ id, name });
+    }
+  }
+
+  return {
+    accounts: state.accounts,
+    subjects: state.subjects,
+    transactionTypes
+  };
+};
 
 export default connect(mapStateToProps)(TransactionForm);
