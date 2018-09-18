@@ -1,7 +1,7 @@
 import React from 'react';
 import ExpenseForm from './ExpenseForm';
-import ConfirmModal from './ConfirmModal';
-import { startEditExpense, startRemoveExpense } from '../actions/expenses';
+import ConfirmModal from '../ConfirmModal';
+import { startEditExpense, startRemoveExpense } from '../../actions/expenses';
 import { connect } from 'react-redux';
 
 export class EditExpensePage extends React.Component {

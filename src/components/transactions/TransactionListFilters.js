@@ -2,11 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   setTextFilter,
-  sortByDate,
-  sortByAmount,
+  sortBy,
   setStartDate,
   setEndDate
-} from '../actions/filters';
+} from '../../actions/transaction-filters';
 import { DateRangePicker } from 'react-dates';
 
 export class TransactionListFilters extends React.Component {
@@ -86,8 +85,7 @@ const mapDispatchToProps = dispatch => ({
   setStartDate: startDate => dispatch(setStartDate(startDate)),
   setEndDate: endDate => dispatch(setEndDate(endDate)),
   setTextFilter: text => dispatch(setTextFilter(text)),
-  sortByDate: () => dispatch(sortByDate()),
-  sortByAmount: () => dispatch(sortByAmount())
+  sortBy: sortField => dispatch(sortBy(sortField))
 });
 
 export default connect(

@@ -1,6 +1,6 @@
 import React from 'react';
 import TransactionForm from './TransactionForm';
-import { startAddTransaction } from '../actions/transactions';
+import { startAddTransaction } from '../../actions/transactions';
 import { connect } from 'react-redux';
 
 export class AddTransactionPage extends React.Component {

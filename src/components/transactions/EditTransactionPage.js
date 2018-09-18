@@ -4,7 +4,7 @@ import ConfirmModal from './ConfirmModal';
 import {
   startEditTransaction,
   startRemoveTransaction
-} from '../actions/transactions';
+} from '../../actions/transactions';
 import { connect } from 'react-redux';
 
 export class EditTransactionPage extends React.Component {

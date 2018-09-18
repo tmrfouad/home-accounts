@@ -1,6 +1,6 @@
 import React from 'react';
-import selectTransactions from '../selectors/transactions';
-import selectTransactionsTotal from '../selectors/transactions-total';
+import selectTransactions from '../../selectors/transactions';
+import selectTransactionsTotal from '../../selectors/transactions-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import TransactionListItem from './TransactionListItem';
-import selectTransactions from '../selectors/transactions';
+import selectTransactions from '../../selectors/transactions';
 
 export const TransactionList = props => (
   <div className="content-container">

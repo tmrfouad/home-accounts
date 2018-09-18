@@ -1,6 +1,6 @@
 import React from 'react';
-import selectExpenses from '../selectors/expenses';
-import selectExpensesTotal from '../selectors/expenses-total';
+import selectExpenses from '../../selectors/expenses';
+import selectExpensesTotal from '../../selectors/expenses-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';

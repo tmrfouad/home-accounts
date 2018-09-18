@@ -6,7 +6,7 @@ import {
   sortByAmount,
   setStartDate,
   setEndDate
-} from '../actions/filters';
+} from '../../actions/filters';
 import { DateRangePicker } from 'react-dates';
 
 export class ExpenseListFilters extends React.Component {

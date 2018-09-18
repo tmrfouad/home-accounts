@@ -4,8 +4,8 @@ import {
   startAddAccount,
   startEditAccount,
   startRemoveAccount
-} from '../actions/accounts';
-import ConfirmModal from './ConfirmModal';
+} from '../../actions/accounts';
+import ConfirmModal from '../ConfirmModal';
 
 export class AccountForm extends React.Component {
   constructor(props) {
