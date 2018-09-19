@@ -9,7 +9,7 @@ export class TransactionForm extends React.Component {
     super(props);
     const transaction = props.transaction;
     this.state = {
-      type: transaction ? transaction.type : TransactionType.out,
+      type: transaction ? transaction.type : TransactionType.Out,
       account: transaction
         ? transaction.account
         : {
@@ -38,7 +38,7 @@ export class TransactionForm extends React.Component {
   }
 
   onTypeChange = e => {
-    const type = e.target.value;
+    const type = +e.target.value;
     this.setState(() => ({ type }));
   };
 
@@ -84,17 +84,18 @@ export class TransactionForm extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
+
     if (
-      !this.state.type ||
-      (this.state.type === TransactionType.transfer &&
+      (this.state.type !== TransactionType.Transfer && !this.state.account) ||
+      (this.state.type === TransactionType.Transfer &&
         (!this.state.account || !this.state.toAccount)) ||
-      (this.state.type !== TransactionType.transfer && !this.state.account) ||
       !this.state.subject ||
       !this.state.amount
     ) {
       this.setState(() => ({
-        error: `Please provide type, account${this.state.type ===
-          TransactionType.transfer && ', to account'}, subject and amount.`
+        error: `Please provide type, account${
+          this.state.type === TransactionType.Transfer ? ', to account' : ''
+        }, subject and amount.`
       }));
     } else {
       this.setState(() => ({ error: '' }));
@@ -121,7 +122,7 @@ export class TransactionForm extends React.Component {
           onChange={this.onTypeChange}
         >
           <option value="" disabled>
-            -- Select Type --
+            -- Type --
           </option>
           {this.props.transactionTypes.map(type => (
             <option key={type.id} value={type.id}>
@@ -135,7 +136,8 @@ export class TransactionForm extends React.Component {
           onChange={this.onAccountChange}
         >
           <option value="" disabled>
-            -- Select Account --
+            -- {this.state.type === TransactionType.Transfer ? 'From ' : ''}
+            Account --
           </option>
           {this.props.accounts.map(acc => (
             <option key={acc.id} value={acc.id}>
@@ -143,27 +145,29 @@ export class TransactionForm extends React.Component {
             </option>
           ))}
         </select>
-        <select
-          className="select"
-          value={this.state.toAccount.id}
-          onChange={this.onToAccountChange}
-        >
-          <option value="" disabled>
-            -- Select Account --
-          </option>
-          {this.props.accounts.map(acc => (
-            <option key={acc.id} value={acc.id}>
-              {acc.name}
+        {this.state.type === TransactionType.Transfer && (
+          <select
+            className="select"
+            value={this.state.toAccount.id}
+            onChange={this.onToAccountChange}
+          >
+            <option value="" disabled>
+              -- To Account --
             </option>
-          ))}
-        </select>
+            {this.props.accounts.map(acc => (
+              <option key={acc.id} value={acc.id}>
+                {acc.name}
+              </option>
+            ))}
+          </select>
+        )}
         <select
           className="select"
           value={this.state.subject.id}
           onChange={this.onSubjectChange}
         >
           <option value="" disabled>
-            -- Select Subject --
+            -- Subject --
           </option>
           {this.props.subjects.map(sub => (
             <option key={sub.id} value={sub.id}>

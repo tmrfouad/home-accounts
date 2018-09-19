@@ -46,13 +46,13 @@
                 ".validate": false
               }
             },
-            "ToAccount": {
+            "toAccount": {
               ".validate": "newData.hasChildren(['id', 'name'])",
               "id": {
-                ".validate": "newData.isString() && newData.val().length > 0"
+                ".validate": "newData.isString()"
               },
               "name": {
-                ".validate": "newData.isString() && newData.val().length > 0"
+                ".validate": "newData.isString()"
               },
               "$other": {
                 ".validate": false

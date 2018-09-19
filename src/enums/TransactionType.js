@@ -1,7 +1,7 @@
 const TransactionType = {
-  in: 0,
-  out: 1,
-  transfer: 2
+  In: 0,
+  Out: 1,
+  Transfer: 2
 };
 
 export default TransactionType;

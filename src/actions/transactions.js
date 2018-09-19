@@ -11,7 +11,7 @@ export const startAddTransaction = (transactionData = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
     const {
-      type = TransactionType.out,
+      type = TransactionType.Out,
       account = {
         id: '',
         name: ''
@@ -38,6 +38,8 @@ export const startAddTransaction = (transactionData = {}) => {
       createdAt,
       notes
     };
+
+    // console.log(JSON.stringify(transaction));
 
     return database
       .ref(`users/${uid}/transactions`)
@@ -103,6 +105,7 @@ export const startSetTransactions = () => {
           ...childSnap.val()
         });
       });
+
       dispatch(setTransactions(transactions));
     });
   };
