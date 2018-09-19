@@ -12,6 +12,8 @@ import './styles/styles.scss';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { startSetAccounts } from './actions/accounts';
+import { startSetSubjects } from './actions/subjects';
+import { startSetTransactions } from './actions/transactions';
 
 const store = configureStore();
 const jsx = (
@@ -33,13 +35,10 @@ firebase.auth().onAuthStateChanged(user => {
   if (user) {
     store.dispatch(login(user.uid));
     store
-      .dispatch(startSetExpenses())
-      .then(() => {
-        return store.dispatch(startSetAccounts());
-      })
-      .then(() => {
-        renderApp();
-      });
+      .dispatch(startSetTransactions())
+      .then(() => store.dispatch(startSetAccounts()))
+      .then(() => store.dispatch(startSetSubjects()))
+      .then(() => renderApp());
   } else {
     store.dispatch(logout());
     renderApp();
