@@ -7,6 +7,8 @@ import AddTransactionPage from '../components/transactions/AddTransactionPage';
 import EditTransactionPage from '../components/transactions/EditTransactionPage';
 import AccountsPage from '../components/accounts/AccountsPage';
 import AccountForm from '../components/accounts/AccountForm';
+import SubjectsPage from '../components/subjects/SubjectsPage';
+import SubjectForm from '../components/subjects/SubjectForm';
 import AddExpensePage from '../components/expenses/AddExpensePage';
 import EditExpensePage from '../components/expenses/EditExpensePage';
 import PublicRoute from './PublicRoute';
@@ -33,6 +35,9 @@ const AppRouter = () => (
         <PrivateRoute path="/accounts" component={AccountsPage} />
         <PrivateRoute path="/accountform/:id" component={AccountForm} />
         <PrivateRoute path="/accountform" component={AccountForm} />
+        <PrivateRoute path="/subjects" component={SubjectsPage} />
+        <PrivateRoute path="/subjectform/:id" component={SubjectForm} />
+        <PrivateRoute path="/subjectform" component={SubjectForm} />
         <PublicRoute component={NotFoundPage} />
       </Switch>
     </div>
