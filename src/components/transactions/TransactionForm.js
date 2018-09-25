@@ -43,24 +43,28 @@ export class TransactionForm extends React.Component {
     const valInp = inp.parentElement.querySelector("input[type='hidden']");
     let currentFocus;
 
-    inp.addEventListener('click', showList);
+    inp.addEventListener('click', function() {
+      showList(true);
+    });
 
     inp.addEventListener('blur', function(e) {
-      let inputValue = this.value;
+      console.log('container blur');
+      let inputValue = inp.value;
       const foundObj = src.find(
         o => o[displayField].toUpperCase() === inputValue.toUpperCase()
       );
       if (foundObj) {
         inp.value = foundObj[displayField];
         valInp.value = foundObj[valueField];
-        closeAllLists();
+        // console.log('closed from blur');
+        // closeAllLists();
         onChange({ target: valInp });
       }
     });
 
     /*execute a function when someone writes in the text field:*/
     inp.addEventListener('input', function(e) {
-      showList(e.target);
+      showList();
     });
     /*execute a function presses a key on the keyboard:*/
     inp.addEventListener('keydown', function(e) {
@@ -88,14 +92,15 @@ export class TransactionForm extends React.Component {
         }
       }
     });
-    function showList() {
+    function showList(showAll) {
       let a,
         b,
         i,
         inputValue = inp.value;
       /*close any already open lists of autocompleted values*/
+      console.log('closed from showList');
       closeAllLists();
-      if (!inputValue) {
+      if (!showAll && !inputValue) {
         return false;
       }
       currentFocus = -1;
@@ -111,29 +116,42 @@ export class TransactionForm extends React.Component {
         const srcObj = src[i];
         const srcValue = srcObj[valueField];
         const srcDisplay = srcObj[displayField];
-        if (srcDisplay.toUpperCase().includes(inputValue.toUpperCase())) {
+        if (
+          srcDisplay.toUpperCase().includes(inputValue.toUpperCase()) ||
+          showAll
+        ) {
           /*create a DIV element for each matching element:*/
           b = document.createElement('DIV');
-          /*make the matching letters bold:*/
-          const valIndex = srcDisplay
-            .toUpperCase()
-            .indexOf(inputValue.toUpperCase());
-          b.innerHTML = srcDisplay.substr(0, valIndex);
-          b.innerHTML +=
-            '<strong>' +
-            srcDisplay.substr(valIndex, inputValue.length) +
-            '</strong>';
-          b.innerHTML += srcDisplay.substr(valIndex + inputValue.length);
+          if (showAll) {
+            if (srcDisplay.toUpperCase() === inputValue.toUpperCase()) {
+              b.innerHTML = '<strong>' + srcDisplay + '</strong>';
+            } else {
+              b.innerHTML = srcDisplay;
+            }
+          } else {
+            /*make the matching letters bold:*/
+            const valIndex = srcDisplay
+              .toUpperCase()
+              .indexOf(inputValue.toUpperCase());
+            b.innerHTML = srcDisplay.substr(0, valIndex);
+            b.innerHTML +=
+              '<strong>' +
+              srcDisplay.substr(valIndex, inputValue.length) +
+              '</strong>';
+            b.innerHTML += srcDisplay.substr(valIndex + inputValue.length);
+          }
+
           /*insert a input field that will hold the current array item's value:*/
           b.innerHTML += "<input type='hidden' value='" + srcDisplay + "'>";
           b.innerHTML += "<input type='hidden' value='" + srcValue + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener('click', function(e) {
             /*insert the value for the autocomplete text field:*/
-            inp.value = b.getElementsByTagName('input')[0].value;
-            valInp.value = b.getElementsByTagName('input')[1].value;
+            inp.value = this.getElementsByTagName('input')[0].value;
+            valInp.value = this.getElementsByTagName('input')[1].value;
             /*close the list of autocompleted values,
             (or any other open lists of autocompleted values:*/
+            console.log('closed from listItemClick');
             closeAllLists();
             onChange({ target: valInp });
           });
@@ -169,6 +187,7 @@ export class TransactionForm extends React.Component {
     }
     /*execute a function when someone clicks in the document:*/
     document.addEventListener('click', function(e) {
+      console.log('closed from DOM click');
       closeAllLists(e.target);
     });
   }
