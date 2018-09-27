@@ -14,22 +14,24 @@
   top: 100%;
   left: 0;
   right: 0;
+  max-height: 300px;
+  overflow: auto;
 }
 
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
   background-color: #fff;
-  border-bottom: 1px solid $light-gray; 
+  border-bottom: 1px solid $light-gray;
 }
 
 .autocomplete-items div:hover {
   /*when hovering an item:*/
-  background-color: $off-white; 
+  background-color: $off-white;
 }
 
 .autocomplete-active {
   /*when navigating through the items using the arrow keys:*/
-  background-color: $gray !important; 
-  color: #fff; 
+  background-color: $gray !important;
+  color: #fff;
 }
