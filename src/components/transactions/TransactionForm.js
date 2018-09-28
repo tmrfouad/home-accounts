@@ -38,25 +38,25 @@ export class TransactionForm extends React.Component {
     };
   }
 
-  onTypeChange = e => {
-    const type = +e.target.value;
+  onTypeChange = value => {
+    const type = +value;
     this.setState(() => ({ type }));
   };
 
-  onAccountChange = e => {
-    const id = e.target.value;
+  onAccountChange = value => {
+    const id = value;
     const account = this.props.accounts.find(acc => acc.id === id);
     this.setState(() => ({ account }));
   };
 
-  onToAccountChange = e => {
-    const id = e.target.value;
+  onToAccountChange = value => {
+    const id = value;
     const toAccount = this.props.accounts.find(acc => acc.id === id);
     this.setState(() => ({ toAccount }));
   };
 
-  onSubjectChange = e => {
-    const id = e.target.value;
+  onSubjectChange = value => {
+    const id = value;
     const subject = this.props.subjects.find(sub => sub.id === id);
     this.setState(() => ({ subject }));
   };
@@ -112,31 +112,45 @@ export class TransactionForm extends React.Component {
     }
   };
 
+  // <select
+  //   className="select"
+  //   autoFocus
+  //   value={this.state.type}
+  //   onChange={this.onTypeChange}
+  // >
+  //   <option value="" disabled>
+  //     -- Type --
+  //   </option>
+  //   {this.props.transactionTypes.map(type => (
+  //     <option key={type.id} value={type.id}>
+  //       {type.name}
+  //     </option>
+  //   ))}
+  // </select>
+
   render() {
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}
-        <select
-          className="select"
-          autoFocus
-          value={this.state.type}
+        <AutoComplete
+          id="type"
+          source={[{id: 0, name: 'In'}, {id: 1, name: 'Out'}, {id: 2, name: 'Transfer'}]}
+          displayField="name"
+          valueField="id"
           onChange={this.onTypeChange}
-        >
-          <option value="" disabled>
-            -- Type --
-          </option>
-          {this.props.transactionTypes.map(type => (
-            <option key={type.id} value={type.id}>
-              {type.name}
-            </option>
-          ))}
-        </select>
+          value={this.state.type}
+
+          placeholder="Type"
+          className="text-input width-100p"
+        />
         <AutoComplete
           id="account"
           source={this.props.accounts}
           displayField="name"
           valueField="id"
           onChange={this.onAccountChange}
+          value={this.state.account.id}
+
           placeholder="Account"
           className="text-input width-100p"
         />
@@ -147,6 +161,8 @@ export class TransactionForm extends React.Component {
             displayField="name"
             valueField="id"
             onChange={this.onToAccountChange}
+            value={this.state.toAccount.id}
+
             placeholder="To Account"
             className="text-input width-100p"
           />
@@ -157,6 +173,8 @@ export class TransactionForm extends React.Component {
           displayField="name"
           valueField="id"
           onChange={this.onSubjectChange}
+          value={this.state.subject.id}
+
           placeholder="Subject"
           className="text-input width-100p"
         />
