@@ -24,6 +24,7 @@ export default (
         return 0;
       }
 
+      
       return a[sortBy] < b[sortBy] ? 1 : -1;
 
       // if (sortBy === 'date') {
