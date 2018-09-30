@@ -8,11 +8,12 @@ export default (
 ) => {
   return transactions
     .filter(transaction => {
+      console.log(!!account);
       return (
-        (!type || transaction.type === type) &&
-        (!account || transaction.account === account) &&
-        (!toAccount || transaction.toAccount === toAccount) &&
-        (!subject || transaction.subject === subject) &&
+        (type === -1 || transaction.type === type) &&
+        (!account || transaction.account.name.toLowerCase().includes(account.toLowerCase())) &&
+        (!toAccount || (transaction.toAccount && transaction.toAccount.name.toLowerCase().includes(toAccount.toLowerCase()))) &&
+        (!subject || transaction.subject.name.toLowerCase().includes(subject.toLowerCase())) &&
         (!startDate ||
           moment(transaction.createdAt).isSameOrAfter(startDate)) &&
         (!endDate || moment(transaction.createdAt).isSameOrBefore(endDate)) &&
@@ -24,7 +25,6 @@ export default (
         return 0;
       }
 
-      
       return a[sortBy] < b[sortBy] ? 1 : -1;
 
       // if (sortBy === 'date') {

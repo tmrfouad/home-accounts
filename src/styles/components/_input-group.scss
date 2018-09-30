@@ -13,3 +13,8 @@
     margin-bottom: $s-size;
   }
 }
+
+.input-group__item--sm {
+  @extend .input-group__item;
+  max-width: 146px; 
+}

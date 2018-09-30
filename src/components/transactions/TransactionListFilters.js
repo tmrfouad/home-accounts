@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
   setTextFilter,
+  setAccountFilter,
   sortBy,
   setStartDate,
   setEndDate
@@ -22,26 +23,35 @@ export class TransactionListFilters extends React.Component {
     this.setState({ createdAtfocusedInput });
   };
 
+  onAccountFilterChange = e => {
+    this.props.setAccountFilter(e.target.value);
+  };
+
   onTextFilterChange = e => {
     this.props.setTextFilter(e.target.value);
   };
 
   onSortSelectChange = e => {
-    if (e.target.value === 'date') {
-      this.props.sortByDate();
-    } else if (e.target.value === 'amount') {
-      this.props.sortByAmount();
-    }
+    this.props.sortBy(e.target.value);
   };
 
   render() {
     return (
       <div className="content-container">
         <div className="input-group">
-          <div className="input-group__item">
+          <div className="input-group__item--sm">
             <input
               type="text"
-              placeholder="Search transactions"
+              placeholder="Account"
+              className="text-input"
+              value={this.props.filters.account}
+              onChange={this.onAccountFilterChange}
+            />
+          </div>
+          <div className="input-group__item--sm">
+            <input
+              type="text"
+              placeholder="Notes"
               className="text-input"
               value={this.props.filters.text}
               onChange={this.onTextFilterChange}
@@ -53,7 +63,7 @@ export class TransactionListFilters extends React.Component {
               value={this.props.filters.sortBy}
               onChange={this.onSortSelectChange}
             >
-              <option value="date">Date</option>
+              <option value="createdAt">Date</option>
               <option value="amount">Amount</option>
             </select>
           </div>
@@ -85,6 +95,7 @@ const mapDispatchToProps = dispatch => ({
   setStartDate: startDate => dispatch(setStartDate(startDate)),
   setEndDate: endDate => dispatch(setEndDate(endDate)),
   setTextFilter: text => dispatch(setTextFilter(text)),
+  setAccountFilter: accountName => dispatch(setAccountFilter(accountName)),
   sortBy: sortField => dispatch(sortBy(sortField))
 });
 

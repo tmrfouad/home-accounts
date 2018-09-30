@@ -3,14 +3,14 @@ import moment from 'moment';
 // Transaction Filters Reducer
 
 const transFiltersReducerDefaultState = {
-  type: null,
-  account: null,
-  toAccount: null,
-  subject: null,
-  startDate: moment().startOf('month'),
-  endDate: moment().endOf('month'),
+  type: -1,
+  account: '',
+  toAccount: '',
+  subject: '',
+  startDate: moment().startOf('day'),
+  endDate: moment().endOf('day'),
   text: '',
-  sortBy: 'date' // date or amount
+  sortBy: 'createdAt'
 };
 
 export default (state = transFiltersReducerDefaultState, action) => {
