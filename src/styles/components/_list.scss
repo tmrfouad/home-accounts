@@ -66,3 +66,20 @@
     padding-left: $s-size;
   }
 }
+
+.list-item__icon {
+  font-style: normal;
+  margin: 0 0 0 $s-size;
+}
+
+.list-item__icon--in {
+  color: #38af80;
+}
+
+.list-item__icon--out {
+  color: #cc5858;
+}
+
+.list-item__icon--transfer {
+  color: #727272;
+}
