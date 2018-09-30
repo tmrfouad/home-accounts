@@ -82,12 +82,14 @@ export class SubjectForm extends React.Component {
           />
           <div>
             <button className="button form__action">Save Subject</button>
-            <button
-              className="button form__action button--secondary"
-              onClick={this.openRemoveItemDialog}
-            >
-              Remove Subject
-            </button>
+            {this.state.mode === 'edit' && (
+              <button
+                className="button form__action button--secondary"
+                onClick={this.openRemoveItemDialog}
+              >
+                Remove Subject
+              </button>
+            )}
           </div>
         </form>
         <ConfirmModal

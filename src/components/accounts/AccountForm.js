@@ -82,12 +82,14 @@ export class AccountForm extends React.Component {
           />
           <div>
             <button className="button form__action">Save Account</button>
-            <button
-              className="button form__action button--secondary"
-              onClick={this.openRemoveItemDialog}
-            >
-              Remove Account
-            </button>
+            {this.state.mode === 'edit' && (
+              <button
+                className="button form__action button--secondary"
+                onClick={this.openRemoveItemDialog}
+              >
+                Remove Account
+              </button>
+            )}
           </div>
         </form>
         <ConfirmModal
