@@ -15,14 +15,17 @@ export default class AutoComplete extends React.Component {
         'You must supply the id, src, displayField, valueField and onChange properties for the AutoComplete component.'
       );
     }
- 
-    const selectedItem = props.source.find(itm => itm[props.valueField] + '' === props.value + '') || {};
+
+    const selectedItem =
+      props.source.find(
+        itm => itm[props.valueField] + '' === props.value + ''
+      ) || {};
 
     this.state = {
       value: props.value,
       display: selectedItem ? selectedItem[props.displayField] : '',
       selectedItem
-    }
+    };
   }
 
   componentDidMount() {
@@ -39,18 +42,14 @@ export default class AutoComplete extends React.Component {
 
     let currentFocus;
 
-    inp.addEventListener('click', function () {
+    inp.addEventListener('click', function() {
       showList(true);
     });
 
-    inp.addEventListener('blur', function (e) {
+    inp.addEventListener('blur', function(e) {
       let inputValue = inp.value;
-      const foundObj = src.find(
-        o => o[displayField] + '' === inputValue + ''
-      );
+      const foundObj = src.find(o => o[displayField] + '' === inputValue + '');
       if (foundObj) {
-        // inp.value = foundObj[displayField];
-        // valInp.value = foundObj[valueField];
         const value = foundObj[valueField];
         const display = foundObj[displayField];
         const selectedItem = foundObj;
@@ -61,29 +60,49 @@ export default class AutoComplete extends React.Component {
           selectedItem
         });
         onChange(value);
+        closeAllLists();
+      } else {
+        if (isListOpen()) {
+          const firstListItem = inp.parentNode.querySelector(
+            '.autocomplete-active'
+          );
+          if (firstListItem) {
+            const value = firstListItem.getElementsByTagName('input')[0].value;
+            const firstObj = src.find(
+              itm => itm[valueField] + '' === value + ''
+            );
+            console.log(firstObj);
+            const display = firstObj[displayField];
+            const selectedItem = firstObj;
+
+            self.setState({
+              value,
+              display,
+              selectedItem
+            });
+            onChange(value);
+            closeAllLists();
+          }
+        }
       }
     });
 
     /*execute a function when someone writes in the text field:*/
-    inp.addEventListener('input', function (e) {
+    inp.addEventListener('input', function(e) {
       showList();
     });
     /*execute a function presses a key on the keyboard:*/
-    inp.addEventListener('keydown', function (e) {
+    inp.addEventListener('keydown', function(e) {
       let x = document.getElementById(this.id + 'autocomplete-list');
       if (x) x = x.getElementsByTagName('div');
       if (e.keyCode == 40) {
-        const listItems = inp.parentNode.getElementsByClassName(
-          'autocomplete-items'
-        );
-        if (listItems && listItems.length > 0) {
+        if (isListOpen()) {
           /*If the arrow DOWN key is pressed,
           increase the currentFocus variable:*/
           currentFocus++;
           /*and and make the current item more visible:*/
           addActive(x);
         } else {
-          console.log(e.keyCode);
           showList(true);
         }
       } else if (e.keyCode == 38) {
@@ -100,6 +119,8 @@ export default class AutoComplete extends React.Component {
           /*and simulate a click on the "active" item:*/
           if (x) x[currentFocus].click();
         }
+      } else if (e.keyCode == 27) {
+        closeAllLists();
       }
     });
     function showList(showAll) {
@@ -160,12 +181,16 @@ export default class AutoComplete extends React.Component {
           /*insert a input field that will hold the current array item's value:*/
           b.innerHTML += "<input type='hidden' value='" + srcValue + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
-          b.addEventListener('click', function (e) {
+          b.addEventListener('click', function(e) {
             /*insert the value for the autocomplete text field:*/
             // const display = this.getElementsByTagName('input')[0].value;
             const value = this.getElementsByTagName('input')[0].value;
-            const selectedItem = self.props.source.find(itm => itm[valueField] + '' === value + '');
-            const display = selectedItem ? selectedItem[self.props.displayField] : '';
+            const selectedItem = self.props.source.find(
+              itm => itm[valueField] + '' === value + ''
+            );
+            const display = selectedItem
+              ? selectedItem[self.props.displayField]
+              : '';
 
             self.setState({
               value,
@@ -216,17 +241,17 @@ export default class AutoComplete extends React.Component {
       return !!inp.parentNode.querySelector('.autocomplete-items');
     }
     /*execute a function when someone clicks in the document:*/
-    document.addEventListener('click', function (e) {
+    document.addEventListener('click', function(e) {
       closeAllLists(e.target);
     });
   }
 
-  onDisplayChange = (e) => {
+  onDisplayChange = e => {
     const display = e.target.value;
     this.setState({
       display
     });
-  }
+  };
 
   render() {
     return (
@@ -240,11 +265,12 @@ export default class AutoComplete extends React.Component {
           onChange={this.onDisplayChange}
           autoComplete="off"
         />
-        <input id={this.props.id + '-hidden'}
+        <input
+          id={this.props.id + '-hidden'}
           value={this.state.value}
-          type="hidden" />
+          type="hidden"
+        />
       </div>
     );
   }
 }
-
