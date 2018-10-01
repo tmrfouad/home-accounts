@@ -1,5 +1,9 @@
 .header {
+  position: fixed;
   background: $dark-blue;
+  height: $header-height;
+  width: 100%;
+  z-index: 3;
 }
 
 .header__content {
@@ -7,6 +11,10 @@
   display: flex;
   justify-content: space-between;
   padding: $s-size 0;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    padding: $s-size;
+  }
 }
 
 .header__title {

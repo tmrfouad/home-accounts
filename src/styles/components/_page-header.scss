@@ -1,7 +1,7 @@
 .page-header {
   background: $off-white;
   margin-bottom: $l-size;
-  padding: $l-size 0;
+  padding: calc(#{$header-height} + #{$s-size}) 0 $l-size 0;
 }
 
 .page-header__title {

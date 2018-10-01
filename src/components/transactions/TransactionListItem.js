@@ -48,13 +48,13 @@ const TransactionListItem = ({
         }
       >
         {type === TransactionTypes.In && (
-          <FontAwesomeIcon icon={faFileImport} />
+          <FontAwesomeIcon className="font-awesome-icon" icon={faFileImport} />
         )}
         {type === TransactionTypes.Out && (
-          <FontAwesomeIcon icon={faFileExport} />
+          <FontAwesomeIcon className="font-awesome-icon" icon={faFileExport} />
         )}
         {type === TransactionTypes.Transfer && (
-          <FontAwesomeIcon icon={faExchangeAlt} />
+          <FontAwesomeIcon className="font-awesome-icon" icon={faExchangeAlt} />
         )}
       </span>
     </h3>
