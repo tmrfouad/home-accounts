@@ -3,7 +3,7 @@ import moment from 'moment';
 // Transaction Filters Reducer
 
 const transFiltersReducerDefaultState = {
-  type: -1,
+  typeId: -1,
   account: '',
   toAccount: '',
   subject: '',
@@ -16,7 +16,7 @@ const transFiltersReducerDefaultState = {
 export default (state = transFiltersReducerDefaultState, action) => {
   switch (action.type) {
     case 'TRANS_SET_TYPE_FILTER':
-      return { ...state, type: action.type };
+      return { ...state, typeId: action.typeId };
     case 'TRANS_SET_ACCOUNT_FILTER':
       return { ...state, account: action.account };
     case 'TRANS_SET_TO_ACCOUNT_FILTER':

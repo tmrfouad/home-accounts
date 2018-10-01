@@ -16,5 +16,10 @@
 
 .input-group__item--sm {
   @extend .input-group__item;
-  max-width: 146px; 
+  max-width: 200px;
+}
+
+.input-group__item--xs {
+  @extend .input-group__item;
+  max-width: 90px;
 }

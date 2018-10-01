@@ -1,7 +1,7 @@
 // TRANS_SET_TYPE_FILTER
-export const setTypeFilter = type => ({
+export const setTypeFilter = typeId => ({
   type: 'TRANS_SET_TYPE_FILTER',
-  type
+  typeId
 });
 
 // TRANS_SET_ACCOUNT_FILTER

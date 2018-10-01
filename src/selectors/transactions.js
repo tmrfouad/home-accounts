@@ -2,27 +2,35 @@ import moment from 'moment';
 
 // Get visible transactions
 
-export default (
-  transactions,
-  { type, account, toAccount, subject, startDate, endDate, text, sortBy }
-) => {
+export default (transactions, { typeId, startDate, endDate, text, sortBy }) => {
   return transactions
     .filter(transaction => {
-      console.log(!!account);
       return (
-        (type === -1 || transaction.type === type) &&
-        (!account || transaction.account.name.toLowerCase().includes(account.toLowerCase())) &&
-        (!toAccount || (transaction.toAccount && transaction.toAccount.name.toLowerCase().includes(toAccount.toLowerCase()))) &&
-        (!subject || transaction.subject.name.toLowerCase().includes(subject.toLowerCase())) &&
+        (typeId === -1 || transaction.type === typeId) &&
         (!startDate ||
           moment(transaction.createdAt).isSameOrAfter(startDate)) &&
         (!endDate || moment(transaction.createdAt).isSameOrBefore(endDate)) &&
-        (!text || transaction.notes.toLowerCase().includes(text.toLowerCase()))
+        (!text ||
+          (transaction.account.name
+            .toLowerCase()
+            .includes(text.toLowerCase()) ||
+            (transaction.toAccount &&
+              transaction.toAccount.name
+                .toLowerCase()
+                .includes(text.toLowerCase())) ||
+            transaction.subject.name
+              .toLowerCase()
+              .includes(text.toLowerCase()) ||
+            transaction.notes.toLowerCase().includes(text.toLowerCase())))
       );
     })
     .sort((a, b) => {
       if (!sortBy) {
         return 0;
+      }
+
+      if (sortBy === 'type') {
+        return a[sortBy] > b[sortBy] ? 1 : -1;
       }
 
       return a[sortBy] < b[sortBy] ? 1 : -1;
