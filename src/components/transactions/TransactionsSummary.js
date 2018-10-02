@@ -23,7 +23,17 @@ export const TransactionsSummary = ({
         Total <span>{transactionCount || 0}</span> transaction
         {transactionCount === 1 ? '' : 's'}
         {': '}
-        <span>{numeral(visibleTransactionsTotal / 100).format('$0,0.00')}</span>
+        <span
+          className={
+            visibleTransactionsTotal === 0
+              ? ''
+              : visibleTransactionsTotal > 0
+                ? 'positive'
+                : 'negative'
+          }
+        >
+          {numeral(visibleTransactionsTotal / 100).format('$0,0.00')}
+        </span>
       </h2>
       <h4>
         Net balance:{' '}

@@ -73,11 +73,11 @@
 }
 
 .list-item__icon--in {
-  color: #38af80;
+  color: $positive;
 }
 
 .list-item__icon--out {
-  color: #cc5858;
+  color: $negative;
 }
 
 .list-item__icon--transfer {
