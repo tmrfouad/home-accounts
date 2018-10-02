@@ -32,7 +32,7 @@ export const TransactionsSummary = ({
                 : 'negative'
           }
         >
-          {numeral(visibleTransactionsTotal / 100).format('$0,0.00')}
+          {numeral(((visibleTransactionsTotal >= 0 ? 1 : -1) * visibleTransactionsTotal) / 100).format('$0,0.00')}
         </span>
       </h2>
       <h4>

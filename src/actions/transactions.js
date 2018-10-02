@@ -1,5 +1,6 @@
 import database from '../firebase/firebase';
 import TransactionType from '../enums/TransactionType';
+import moment from 'moment';
 
 // ADD_TRANSACTION
 export const addTransaction = transaction => ({
@@ -94,9 +95,19 @@ export const setTransactions = transactions => ({
   transactions
 });
 
-export const startSetTransactions = () => {
+const defaultFilters = {
+  startDate: moment().startOf('day'),
+  endDate: moment().endOf('day')
+};
+
+export const startSetTransactions = (filters = defaultFilters) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
+    let query = database.ref(`users/${uid}/transactions`).orderByChild('createdAt');
+    if (filters) {
+      query = filters.startDate ? query.startAt(filters.startDate.date()) : query;
+      query = filters.endDate ? query.endAt(filters.endDate.date()) : query;
+    }
     return database.ref(`users/${uid}/transactions`).once('value', snap => {
       const transactions = [];
       snap.forEach(childSnap => {
