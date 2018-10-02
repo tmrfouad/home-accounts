@@ -2,6 +2,7 @@ import React from 'react';
 import ExpenseForm from './ExpenseForm';
 import { startAddExpense } from '../../actions/expenses';
 import { connect } from 'react-redux';
+import { BackButton } from '../BackButton';
 
 export class AddExpensePage extends React.Component {
   onSubmit = expense => {
@@ -19,6 +20,7 @@ export class AddExpensePage extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">Add Expense</h2>
           </div>
         </div>

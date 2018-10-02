@@ -6,6 +6,7 @@ import {
   startRemoveTransaction
 } from '../../actions/transactions';
 import { connect } from 'react-redux';
+import { BackButton } from '../BackButton';
 
 export class EditTransactionPage extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ export class EditTransactionPage extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">Edit Transaction</h2>
           </div>
         </div>

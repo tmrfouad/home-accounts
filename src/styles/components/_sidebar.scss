@@ -47,3 +47,21 @@
 .sidenav__collapse:active {
   outline: none;
 }
+
+.mobile-menu {
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: $header-height;
+  left: 0;
+  background-color: $dark-blue;
+  overflow-x: hidden;
+  display: none;
+
+  a {
+    padding: $s-size $l-size;
+    text-decoration: none;
+    color: $off-white;
+    display: block;
+  }
+}

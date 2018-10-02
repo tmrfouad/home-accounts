@@ -9,8 +9,7 @@ export const TransactionsSummary = ({
   styles,
   transactionCount,
   transactionsTotal,
-  visibleTransactionsTotal,
-  hiddenTransactionsCount
+  visibleTransactionsTotal
 }) => (
   <div className="page-header">
     <div
@@ -27,15 +26,9 @@ export const TransactionsSummary = ({
         <span>{numeral(visibleTransactionsTotal / 100).format('$0,0.00')}</span>
       </h2>
       <h4>
-        Total balance:{' '}
+        Net balance:{' '}
         <span>{numeral(transactionsTotal / 100).format('$0,0.00')}</span>
       </h4>
-      {hiddenTransactionsCount > 0 && (
-        <h4 className="show-for-desktop">
-          Not showing <span>{hiddenTransactionsCount || 0}</span> transaction
-          {hiddenTransactionsCount === 1 ? '' : 's'}
-        </h4>
-      )}
       <div className="page-header__actions">
         <Link className="button" to="/transcreate">
           Add Transaction
@@ -50,13 +43,11 @@ const mapStateToProps = state => {
     state.transactions,
     state.transactionFilters
   );
-  const hiddenTransactionsCount =
-    state.transactions.length - visibleTransactions.length;
+
   return {
     transactionCount: visibleTransactions.length,
     transactionsTotal: selectTransactionsTotal(state.transactions),
     visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
-    hiddenTransactionsCount: hiddenTransactionsCount,
     styles: state.styles
   };
 };

@@ -6,6 +6,7 @@ import {
   startRemoveSubject
 } from '../../actions/subjects';
 import ConfirmModal from '../ConfirmModal';
+import { BackButton } from '../BackButton';
 
 export class SubjectForm extends React.Component {
   constructor(props) {
@@ -70,6 +71,7 @@ export class SubjectForm extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">
               {this.state.mode === 'edit' ? 'Edit' : 'Add'} Subject
             </h2>

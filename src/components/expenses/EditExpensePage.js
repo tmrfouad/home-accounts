@@ -3,6 +3,7 @@ import ExpenseForm from './ExpenseForm';
 import ConfirmModal from '../ConfirmModal';
 import { startEditExpense, startRemoveExpense } from '../../actions/expenses';
 import { connect } from 'react-redux';
+import { BackButton } from '../BackButton';
 
 export class EditExpensePage extends React.Component {
   constructor(props) {
@@ -41,6 +42,7 @@ export class EditExpensePage extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">Edit Expense</h2>
           </div>
         </div>

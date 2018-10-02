@@ -6,6 +6,7 @@ import {
   startRemoveAccount
 } from '../../actions/accounts';
 import ConfirmModal from '../ConfirmModal';
+import { BackButton } from '../BackButton';
 
 export class AccountForm extends React.Component {
   constructor(props) {
@@ -70,6 +71,7 @@ export class AccountForm extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">
               {this.state.mode === 'edit' ? 'Edit' : 'Add'} Account
             </h2>

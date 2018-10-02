@@ -2,6 +2,7 @@ import React from 'react';
 import TransactionForm from './TransactionForm';
 import { startAddTransaction } from '../../actions/transactions';
 import { connect } from 'react-redux';
+import { BackButton } from '../BackButton';
 
 export class AddTransactionPage extends React.Component {
   onSubmit = transaction => {
@@ -19,6 +20,7 @@ export class AddTransactionPage extends React.Component {
                 : 'content-container'
             }
           >
+            <BackButton />
             <h2 className="page-header__title">Add Transaction</h2>
           </div>
         </div>

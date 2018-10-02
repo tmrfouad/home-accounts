@@ -32,6 +32,11 @@
   background: none;
 }
 
+.button--link--dark {
+  background: none;
+  color: $dark-gray;
+}
+
 .button--secondary {
   background: $secondary;
 }
