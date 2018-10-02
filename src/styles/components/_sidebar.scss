@@ -3,11 +3,10 @@
   width: $sidebar-width;
   position: fixed;
   z-index: 1;
-  top: $header-height;
+  top: 0;
   left: 0;
   background-color: $dark-blue;
   overflow-x: hidden;
-  padding-top: 20px;
 
   @media screen and (max-width: $desktop-breakpoint) {
     display: none;
@@ -17,20 +16,16 @@
 .sidenav a {
   padding: 6px 6px 6px 32px;
   text-decoration: none;
-  // font-size: 25px;
-  color: #818181;
+  color: $primary;
   display: block;
+  margin: $s-size;
 }
 
 .sidenav a:hover {
-  color: #f1f1f1;
+  color: $off-white;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {
-    padding-top: 15px;
-  }
-  .sidenav a {
-    font-size: 18px;
-  }
+.sidenav__collapse {
+  width: 100%;
+  height: $header-height;
 }

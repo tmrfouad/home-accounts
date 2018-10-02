@@ -134,12 +134,15 @@ export class TransactionForm extends React.Component {
         {this.state.error && <p className="form__error">{this.state.error}</p>}
         <AutoComplete
           id="type"
-          source={[{id: 0, name: 'In'}, {id: 1, name: 'Out'}, {id: 2, name: 'Transfer'}]}
+          source={[
+            { id: 0, name: 'In' },
+            { id: 1, name: 'Out' },
+            { id: 2, name: 'Transfer' }
+          ]}
           displayField="name"
           valueField="id"
           onChange={this.onTypeChange}
           value={this.state.type}
-
           placeholder="Type"
           className="text-input width-100p"
         />
@@ -150,7 +153,6 @@ export class TransactionForm extends React.Component {
           valueField="id"
           onChange={this.onAccountChange}
           value={this.state.account.id}
-
           placeholder="Account"
           className="text-input width-100p"
         />
@@ -162,7 +164,6 @@ export class TransactionForm extends React.Component {
             valueField="id"
             onChange={this.onToAccountChange}
             value={this.state.toAccount.id}
-
             placeholder="To Account"
             className="text-input width-100p"
           />
@@ -174,7 +175,6 @@ export class TransactionForm extends React.Component {
           valueField="id"
           onChange={this.onSubjectChange}
           value={this.state.subject.id}
-
           placeholder="Subject"
           className="text-input width-100p"
         />
@@ -185,14 +185,16 @@ export class TransactionForm extends React.Component {
           value={this.state.amount}
           onChange={this.onAmountChange}
         />
-        <SingleDatePicker
-          date={this.state.createdAt}
-          onDateChange={this.onCreatedAtChange}
-          focused={this.state.createdAtFocused}
-          onFocusChange={this.onCreatedAtFocusChange}
-          numberOfMonths={1}
-          isOutsideRange={() => false}
-        />
+        <div className="date-picker--full-width">
+          <SingleDatePicker
+            date={this.state.createdAt}
+            onDateChange={this.onCreatedAtChange}
+            focused={this.state.createdAtFocused}
+            onFocusChange={this.onCreatedAtFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={() => false}
+          />
+        </div>
         <textarea
           className="textarea"
           placeholder="Add a note for your transaction (optional)"

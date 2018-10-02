@@ -17,10 +17,7 @@ export const Header = ({ startLogout }) => (
           <FontAwesomeIcon className="font-awesome-icon" icon={faSignOutAlt} />{' '}
           <span className="show-for-desktop">Logout</span>
         </button>
-        <button
-          className="button button--link show-for-mobile"
-          onClick={startLogout}
-        >
+        <button className="button button--link show-for-mobile">
           <FontAwesomeIcon className="font-awesome-icon" icon={faBars} />
         </button>
       </div>

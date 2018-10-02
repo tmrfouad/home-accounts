@@ -61,7 +61,7 @@ export class TransactionListFilters extends React.Component {
               onChange={this.onTextFilterChange}
             />
           </div>
-          <div className="input-group__item">
+          <div className="input-group__item date-picker--full-width-mobile">
             <DateRangePicker
               startDate={this.props.filters.startDate}
               startDateId="your_unique_start_date_id"

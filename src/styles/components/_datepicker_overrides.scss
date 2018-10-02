@@ -1,0 +1,37 @@
+.date-picker--full-width {
+  .SingleDatePicker,
+  .DateRangePicker {
+    width: 100%;
+
+    .SingleDatePickerInput {
+      width: 100%;
+      .DateInput {
+        width: 100%;
+      }
+    }
+
+    .DateRangePickerInput {
+      width: 100%;
+    }
+  }
+}
+
+.date-picker--full-width-mobile {
+  @media screen and (max-width: $desktop-breakpoint) {
+    .SingleDatePicker,
+    .DateRangePicker {
+      width: 100%;
+
+      .SingleDatePickerInput {
+        width: 100%;
+        .DateInput {
+          width: 100%;
+        }
+      }
+
+      .DateRangePickerInput {
+        width: 100%;
+      }
+    }
+  }
+}

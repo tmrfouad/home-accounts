@@ -2,8 +2,14 @@
   position: fixed;
   background: $dark-blue;
   height: $header-height;
-  width: 100%;
+  width: calc(100% - #{$sidebar-width});
   z-index: 3;
+  margin-left: $sidebar-width;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    margin-left: 0;
+    width: 100%;
+  }
 }
 
 .header__content {

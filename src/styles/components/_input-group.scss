@@ -17,9 +17,17 @@
 .input-group__item--sm {
   @extend .input-group__item;
   max-width: 200px;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    max-width: none;
+  }
 }
 
 .input-group__item--xs {
   @extend .input-group__item;
   max-width: 90px;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    max-width: none;
+  }
 }
