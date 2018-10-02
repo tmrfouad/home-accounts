@@ -6,12 +6,19 @@ import numeral from 'numeral';
 import { Link } from 'react-router-dom';
 
 export const ExpensesSummary = ({
+  styles,
   expenseCount,
   expensesTotal,
   hiddenExpensesCount
 }) => (
   <div className="page-header">
-    <div className="content-container">
+    <div
+      className={
+        styles.collapsed
+          ? 'content-container content-container--collapsed'
+          : 'content-container'
+      }
+    >
       <h2 className="page-header__title">
         Viewing <span>{expenseCount || 0}</span> expense
         {expenseCount === 1 ? '' : 's'} totalling{' '}
@@ -38,7 +45,8 @@ const mapStateToProps = state => {
   return {
     expenseCount: visibleExpenses.length,
     expensesTotal: selectExpensesTotal(visibleExpenses),
-    hiddenExpensesCount: hiddenExpensesCount
+    hiddenExpensesCount: hiddenExpensesCount,
+    styles: state.styles
   };
 };
 

@@ -8,3 +8,11 @@
     margin: 0 auto;
   }
 }
+
+.content-container--collapsed {
+  margin-left: $sidebar-width--collapsed;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    margin: 0 auto;
+  }
+}

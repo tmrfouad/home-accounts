@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 
-export const Header = ({ startLogout }) => (
-  <header className="header">
+export const Header = ({ styles, startLogout }) => (
+  <header className={styles.collapsed ? 'header header--collapsed' : 'header'}>
     <div className="header__content">
       <Link className="header__title" to="/transactions">
         <h1>Home Accounts</h1>
@@ -25,11 +25,13 @@ export const Header = ({ startLogout }) => (
   </header>
 );
 
+const mapStateToProps = state => ({ styles: state.styles });
+
 const mapDispatchToProps = dispatch => ({
   startLogout: () => dispatch(startLogout())
 });
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps
 )(Header);

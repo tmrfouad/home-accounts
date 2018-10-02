@@ -7,6 +7,7 @@ import transactionFiltersReducer from '../reducers/transaction-filters';
 import authReducer from '../reducers/auth';
 import accountsRducer from '../reducers/accounts';
 import subjectsRducer from '../reducers/subjects';
+import stylesReducer from '../reducers/styles';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,8 @@ export default () => {
       transactionFilters: transactionFiltersReducer,
       auth: authReducer,
       accounts: accountsRducer,
-      subjects: subjectsRducer
+      subjects: subjectsRducer,
+      styles: stylesReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

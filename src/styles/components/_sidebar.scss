@@ -8,24 +8,42 @@
   background-color: $dark-blue;
   overflow-x: hidden;
 
+  a {
+    padding: $s-size $l-size;
+    text-decoration: none;
+    color: $primary;
+    display: block;
+    // margin: $s-size;
+  }
+
+  a:hover {
+    color: $off-white;
+  }
+
   @media screen and (max-width: $desktop-breakpoint) {
     display: none;
   }
 }
 
-.sidenav a {
-  padding: 6px 6px 6px 32px;
-  text-decoration: none;
-  color: $primary;
-  display: block;
-  margin: $s-size;
-}
+.sidenav--collapsed {
+  width: $sidebar-width--collapsed;
 
-.sidenav a:hover {
-  color: $off-white;
+  a {
+    padding: $s-size;
+    text-align: center;
+
+    span {
+      display: none;
+    }
+  }
 }
 
 .sidenav__collapse {
   width: 100%;
   height: $header-height;
+}
+
+.sidenav__collapse:focus,
+.sidenav__collapse:active {
+  outline: none;
 }

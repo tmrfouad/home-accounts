@@ -37,11 +37,23 @@ export class EditTransactionPage extends React.Component {
     return (
       <div>
         <div className="page-header">
-          <div className="content-container">
+          <div
+            className={
+              this.props.styles.collapsed
+                ? 'content-container content-container--collapsed'
+                : 'content-container'
+            }
+          >
             <h2 className="page-header__title">Edit Transaction</h2>
           </div>
         </div>
-        <div className="content-container">
+        <div
+          className={
+            this.props.styles.collapsed
+              ? 'content-container content-container--collapsed'
+              : 'content-container'
+          }
+        >
           <TransactionForm
             id="transactionForm"
             transaction={this.props.transaction}
@@ -70,7 +82,8 @@ export class EditTransactionPage extends React.Component {
 const mapStateToProps = (state, props) => ({
   transaction: state.transactions.find(
     transaction => transaction.id === props.match.params.id
-  )
+  ),
+  styles: state.styles
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -37,7 +37,13 @@ export class ExpenseListFilters extends React.Component {
 
   render() {
     return (
-      <div className="content-container">
+      <div
+        className={
+          this.props.styles.collapsed
+            ? 'content-container content-container--collapsed'
+            : 'content-container'
+        }
+      >
         <div className="input-group">
           <div className="input-group__item">
             <input
@@ -79,7 +85,8 @@ export class ExpenseListFilters extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  filters: state.filters
+  filters: state.filters,
+  styles: state.styles
 });
 
 const mapDispatchToProps = dispatch => ({

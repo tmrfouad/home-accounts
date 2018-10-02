@@ -8,7 +8,13 @@ export class AccountList extends React.Component {
     return (
       <div>
         <div className="page-header">
-          <div className="content-container">
+          <div
+            className={
+              this.props.styles.collapsed
+                ? 'content-container content-container--collapsed'
+                : 'content-container'
+            }
+          >
             <h2 className="page-header__title">Accounts</h2>
             <div className="page-header__actions">
               <Link className="button" to="/accountform">
@@ -17,7 +23,13 @@ export class AccountList extends React.Component {
             </div>
           </div>
         </div>
-        <div className="content-container">
+        <div
+          className={
+            this.props.styles.collapsed
+              ? 'content-container content-container--collapsed'
+              : 'content-container'
+          }
+        >
           <div className="list-header">
             <div>Name</div>
           </div>
@@ -39,7 +51,8 @@ export class AccountList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  accounts: state.accounts
+  accounts: state.accounts,
+  styles: state.styles
 });
 
 export default connect(mapStateToProps)(AccountList);

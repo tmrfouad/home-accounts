@@ -63,13 +63,26 @@ export class SubjectForm extends React.Component {
     return (
       <div>
         <div className="page-header">
-          <div className="content-container">
+          <div
+            className={
+              this.props.styles.collapsed
+                ? 'content-container content-container--collapsed'
+                : 'content-container'
+            }
+          >
             <h2 className="page-header__title">
               {this.state.mode === 'edit' ? 'Edit' : 'Add'} Subject
             </h2>
           </div>
         </div>
-        <form className="form content-container" onSubmit={this.onFormSubmit}>
+        <form
+          className={
+            this.props.styles.collapsed
+              ? 'form content-container content-container--collapsed'
+              : 'form content-container'
+          }
+          onSubmit={this.onFormSubmit}
+        >
           {this.state.error && (
             <div className="form__error">{this.state.error}</div>
           )}
@@ -107,7 +120,8 @@ export class SubjectForm extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   subject: state.subjects.find(t => t.id === props.match.params.id),
-  subjects: state.subjects
+  subjects: state.subjects,
+  styles: state.styles
 });
 
 const mapDispatchToProps = dispatch => ({

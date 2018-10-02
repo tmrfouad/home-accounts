@@ -38,7 +38,13 @@ export class TransactionListFilters extends React.Component {
 
   render() {
     return (
-      <div className="content-container">
+      <div
+        className={
+          this.props.styles.collapsed
+            ? 'content-container content-container--collapsed'
+            : 'content-container'
+        }
+      >
         <div className="input-group">
           <div className="input-group__item--xs">
             <select
@@ -93,7 +99,8 @@ export class TransactionListFilters extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  filters: state.transactionFilters
+  filters: state.transactionFilters,
+  styles: state.styles
 });
 
 const mapDispatchToProps = dispatch => ({

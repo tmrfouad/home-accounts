@@ -12,6 +12,16 @@
   }
 }
 
+.header--collapsed {
+  width: calc(100% - #{$sidebar-width--collapsed});
+  margin-left: $sidebar-width--collapsed;
+
+  @media screen and (max-width: $desktop-breakpoint) {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
 .header__content {
   align-items: center;
   display: flex;

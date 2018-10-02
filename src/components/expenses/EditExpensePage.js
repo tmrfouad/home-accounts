@@ -34,11 +34,23 @@ export class EditExpensePage extends React.Component {
     return (
       <div>
         <div className="page-header">
-          <div className="content-container">
+          <div
+            className={
+              this.props.styles.collapsed
+                ? 'content-container content-container--collapsed'
+                : 'content-container'
+            }
+          >
             <h2 className="page-header__title">Edit Expense</h2>
           </div>
         </div>
-        <div className="content-container">
+        <div
+          className={
+            this.props.styles.collapsed
+              ? 'content-container content-container--collapsed'
+              : 'content-container'
+          }
+        >
           <ExpenseForm
             id="expenseForm"
             expense={this.props.expense}
@@ -65,7 +77,8 @@ export class EditExpensePage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  expense: state.expenses.find(expense => expense.id === props.match.params.id)
+  expense: state.expenses.find(expense => expense.id === props.match.params.id),
+  styles: state.styles
 });
 
 const mapDispatchToProps = dispatch => ({
