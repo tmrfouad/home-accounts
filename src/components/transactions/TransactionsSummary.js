@@ -32,7 +32,11 @@ export const TransactionsSummary = ({
                 : 'negative'
           }
         >
-          {numeral(((visibleTransactionsTotal >= 0 ? 1 : -1) * visibleTransactionsTotal) / 100).format('$0,0.00')}
+          {numeral(
+            ((visibleTransactionsTotal >= 0 ? 1 : -1) *
+              visibleTransactionsTotal) /
+              100
+          ).format('$0,0.00')}
         </span>
       </h2>
       <h4>
@@ -53,10 +57,11 @@ const mapStateToProps = state => {
     state.transactions,
     state.transactionFilters
   );
+  const transactionsTotal = state.transactionsSums.transactionsTotal;
 
   return {
     transactionCount: visibleTransactions.length,
-    transactionsTotal: selectTransactionsTotal(state.transactions),
+    transactionsTotal,
     visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
     styles: state.styles
   };

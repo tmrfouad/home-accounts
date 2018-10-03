@@ -12,7 +12,10 @@ import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
 import { startSetAccounts } from './actions/accounts';
 import { startSetSubjects } from './actions/subjects';
-import { startSetTransactions } from './actions/transactions';
+import {
+  startSetTransactions,
+  startSetTransTotal
+} from './actions/transactions';
 
 const store = configureStore();
 const jsx = (
@@ -35,6 +38,7 @@ firebase.auth().onAuthStateChanged(user => {
     store.dispatch(login(user.uid));
     store
       .dispatch(startSetTransactions())
+      .then(() => store.dispatch(startSetTransTotal()))
       .then(() => store.dispatch(startSetAccounts()))
       .then(() => store.dispatch(startSetSubjects()))
       .then(() => renderApp());

@@ -43,12 +43,21 @@ export const startAddTransaction = (transactionData = {}) => {
     // console.log(JSON.stringify(transaction));
 
     return database
-      .ref(`users/${uid}/transactions`)
-      .push(transaction)
-      .then(ref => {
-        dispatch(addTransaction({ id: ref.key, ...transaction }));
-      })
-      .catch(() => {});
+      .ref(`users/${uid}/transactionsTotal`)
+      .once('value', snap => {
+        const transactionsTotal = snap.val() + amount;
+        return database
+          .ref(`users/${uid}/transactions`)
+          .push(transaction)
+          .then(ref => {
+            database
+              .ref(`users/${uid}/transactionsTotal`)
+              .set(transactionsTotal);
+
+            dispatch(addTransaction({ id: ref.key, ...transaction }));
+            dispatch(setTransTotal(transactionsTotal));
+          });
+      });
   };
 };
 
@@ -61,11 +70,27 @@ export const removeTransaction = ({ id }) => ({
 export const startRemoveTransaction = ({ id } = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
+
     return database
       .ref(`users/${uid}/transactions/${id}`)
-      .remove()
-      .then(() => {
-        dispatch(removeTransaction({ id }));
+      .once('value', transSnap => {
+        const transaction = transSnap.val();
+        return database
+          .ref(`users/${uid}/transactionsTotal`)
+          .once('value', snap => {
+            const transactionsTotal = snap.val() - transaction.amount;
+            return database
+              .ref(`users/${uid}/transactions/${id}`)
+              .remove()
+              .then(() => {
+                database
+                  .ref(`users/${uid}/transactionsTotal`)
+                  .set(transactionsTotal);
+
+                dispatch(removeTransaction({ id }));
+                dispatch(setTransTotal(transactionsTotal));
+              });
+          });
       });
   };
 };
@@ -80,11 +105,29 @@ export const editTransaction = ({ id } = {}, updates) => ({
 export const startEditTransaction = ({ id } = {}, updates) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
+
     return database
       .ref(`users/${uid}/transactions/${id}`)
-      .update(updates)
-      .then(() => {
-        dispatch(editTransaction({ id }, updates));
+      .once('value', transSnap => {
+        const transaction = transSnap.val();
+        return database
+          .ref(`users/${uid}/transactionsTotal`)
+          .once('value', snap => {
+            const transactionsTotal =
+              snap.val() -
+              (updates.amount ? transaction.amount + updates.amount : 0);
+            return database
+              .ref(`users/${uid}/transactions/${id}`)
+              .update(updates)
+              .then(() => {
+                database
+                  .ref(`users/${uid}/transactionsTotal`)
+                  .set(transactionsTotal);
+
+                dispatch(editTransaction({ id }, updates));
+                dispatch(setTransTotal(transactionsTotal));
+              });
+          });
       });
   };
 };
@@ -106,12 +149,10 @@ export const startSetTransactions = (filters = defaultFilters) => {
     let query = database
       .ref(`users/${uid}/transactions`)
       .orderByChild('createdAt');
-    if (filters) {
-      query = filters.startDate
-        ? query.startAt(filters.startDate.valueOf())
-        : query;
-      query = filters.endDate ? query.endAt(filters.endDate.valueOf()) : query;
-    }
+    query = filters.startDate
+      ? query.startAt(filters.startDate.valueOf())
+      : query;
+    query = filters.endDate ? query.endAt(filters.endDate.valueOf()) : query;
 
     return query.once('value', snap => {
       const transactions = [];
@@ -123,6 +164,26 @@ export const startSetTransactions = (filters = defaultFilters) => {
       });
 
       dispatch(setTransactions(transactions));
+    });
+  };
+};
+
+// SET_TRANS_TOTAL
+export const setTransTotal = transactionsTotal => {
+  return {
+    type: 'SET_TRANS_TOTAL',
+    transactionsTotal
+  };
+};
+
+export const startSetTransTotal = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    let query = database.ref(`users/${uid}/transactionsTotal`);
+
+    return query.once('value', snap => {
+      const transactionsTotal = snap.val();
+      dispatch(setTransTotal(transactionsTotal));
     });
   };
 };
