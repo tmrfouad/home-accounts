@@ -38,7 +38,13 @@ export class TransactionForm extends React.Component {
     };
   }
 
-  onTypeChange = value => {
+  onTypeChange = e => {
+    const value = e.target.value;
+    const type = +value;
+    this.setState(() => ({ type }));
+  };
+
+  onATypeChange = value => {
     const type = +value;
     this.setState(() => ({ type }));
   };
@@ -112,40 +118,38 @@ export class TransactionForm extends React.Component {
     }
   };
 
-  // <select
-  //   className="select"
-  //   autoFocus
+  // <AutoComplete
+  //   id="type"
+  //   source={[
+  //     { id: 0, name: 'In' },
+  //     { id: 1, name: 'Out' },
+  //     { id: 2, name: 'Transfer' }
+  //   ]}
+  //   displayField="name"
+  //   valueField="id"
+  //   onChange={this.onATypeChange}
   //   value={this.state.type}
-  //   onChange={this.onTypeChange}
-  // >
-  //   <option value="" disabled>
-  //     -- Type --
-  //   </option>
-  //   {this.props.transactionTypes.map(type => (
-  //     <option key={type.id} value={type.id}>
-  //       {type.name}
-  //     </option>
-  //   ))}
-  // </select>
+  //   placeholder="Type"
+  //   className="text-input width-100p"
+  // />
 
   render() {
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}
-        <AutoComplete
-          id="type"
-          source={[
-            { id: 0, name: 'In' },
-            { id: 1, name: 'Out' },
-            { id: 2, name: 'Transfer' }
-          ]}
-          displayField="name"
-          valueField="id"
-          onChange={this.onTypeChange}
+        <select
+          className="select"
+          autoFocus
           value={this.state.type}
-          placeholder="Type"
-          className="text-input width-100p"
-        />
+          onChange={this.onTypeChange}
+        >
+          <option value="" disabled>
+            -- Type --
+          </option>
+          <option value="0">In</option>
+          <option value="1">Out</option>
+          <option value="2">Transfer</option>
+        </select>
         <AutoComplete
           id="account"
           source={this.props.accounts}

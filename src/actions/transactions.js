@@ -103,12 +103,17 @@ const defaultFilters = {
 export const startSetTransactions = (filters = defaultFilters) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    let query = database.ref(`users/${uid}/transactions`).orderByChild('createdAt');
+    let query = database
+      .ref(`users/${uid}/transactions`)
+      .orderByChild('createdAt');
     if (filters) {
-      query = filters.startDate ? query.startAt(filters.startDate.date()) : query;
-      query = filters.endDate ? query.endAt(filters.endDate.date()) : query;
+      query = filters.startDate
+        ? query.startAt(filters.startDate.valueOf())
+        : query;
+      query = filters.endDate ? query.endAt(filters.endDate.valueOf()) : query;
     }
-    return database.ref(`users/${uid}/transactions`).once('value', snap => {
+
+    return query.once('value', snap => {
       const transactions = [];
       snap.forEach(childSnap => {
         transactions.push({

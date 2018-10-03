@@ -15,30 +15,37 @@ export default class AutoComplete extends React.Component {
         'You must supply the id, src, displayField, valueField and onChange properties for the AutoComplete component.'
       );
     }
+  }
 
+  updateInputs() {
     const selectedItem =
-      props.source.find(
-        itm => itm[props.valueField] + '' === props.value + ''
+      this.props.source.find(
+        itm => itm[this.props.valueField] + '' === this.props.value + ''
       ) || {};
 
-    this.state = {
-      value: props.value,
-      display: selectedItem ? selectedItem[props.displayField] : '',
-      selectedItem
-    };
+    const textInput = document.getElementById(this.props.id + '-text');
+    const hiddenInput = document.getElementById(this.props.id + '-hidden');
+
+    textInput.value = selectedItem[this.props.displayField] || '';
+    hiddenInput.value = selectedItem[this.props.valueField] || '';
+  }
+
+  componentDidUpdate() {
+    this.updateInputs();
   }
 
   componentDidMount() {
+    this.updateInputs();
     this.autocomplete();
   }
 
   autocomplete() {
     const self = this;
-    const inp = document.getElementById(this.props.id + '-text');
-    const src = this.props.source;
-    const displayField = this.props.displayField;
-    const valueField = this.props.valueField;
-    const onChange = this.props.onChange;
+    const inp = document.getElementById(self.props.id + '-text');
+    const src = self.props.source;
+    const displayField = self.props.displayField;
+    const valueField = self.props.valueField;
+    const onChange = self.props.onChange;
 
     let currentFocus;
 
@@ -54,14 +61,6 @@ export default class AutoComplete extends React.Component {
       const foundObj = src.find(o => o[displayField] + '' === inputValue + '');
       if (foundObj) {
         const value = foundObj[valueField];
-        const display = foundObj[displayField];
-        const selectedItem = foundObj;
-
-        self.setState({
-          value,
-          display,
-          selectedItem
-        });
         onChange(value);
         closeAllLists();
       } else {
@@ -74,15 +73,6 @@ export default class AutoComplete extends React.Component {
             const firstObj = src.find(
               itm => itm[valueField] + '' === value + ''
             );
-
-            const display = firstObj[displayField];
-            const selectedItem = firstObj;
-
-            self.setState({
-              value,
-              display,
-              selectedItem
-            });
             onChange(value);
             closeAllLists();
           }
@@ -186,7 +176,6 @@ export default class AutoComplete extends React.Component {
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener('click', function(e) {
             /*insert the value for the autocomplete text field:*/
-            // const display = this.getElementsByTagName('input')[0].value;
             const value = this.getElementsByTagName('input')[0].value;
             const selectedItem = self.props.source.find(
               itm => itm[valueField] + '' === value + ''
@@ -194,12 +183,6 @@ export default class AutoComplete extends React.Component {
             const display = selectedItem
               ? selectedItem[self.props.displayField]
               : '';
-
-            self.setState({
-              value,
-              display,
-              selectedItem
-            });
 
             // inp.value = display;
             // self.state.value[displayField] = display;
@@ -249,13 +232,6 @@ export default class AutoComplete extends React.Component {
     });
   }
 
-  onDisplayChange = e => {
-    const display = e.target.value;
-    this.setState({
-      display
-    });
-  };
-
   render() {
     return (
       <div className="autocomplete">
@@ -264,15 +240,9 @@ export default class AutoComplete extends React.Component {
           type="text"
           className={this.props.className}
           placeholder={this.props.placeholder}
-          value={this.state.display}
-          onChange={this.onDisplayChange}
           autoComplete="off"
         />
-        <input
-          id={this.props.id + '-hidden'}
-          value={this.state.value}
-          type="hidden"
-        />
+        <input id={this.props.id + '-hidden'} type="hidden" />
       </div>
     );
   }

@@ -30,6 +30,7 @@
         },
         "transactions": {
           "$transaction_id": {
+            ".indexOn": "createdAt",
             ".validate": "newData.hasChildren(['type', 'account', 'toAccount', 'subject', 'amount', 'createdAt', 'notes'])",
             "type": {
               ".validate": "newData.isNumber() && (newData.val() === 0 || newData.val() === 1 || newData.val() === 2)"

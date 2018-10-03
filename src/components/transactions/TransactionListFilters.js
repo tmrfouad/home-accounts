@@ -8,6 +8,7 @@ import {
   setEndDate
 } from '../../actions/transaction-filters';
 import { DateRangePicker } from 'react-dates';
+import { startSetTransactions } from '../../actions/transactions';
 
 export class TransactionListFilters extends React.Component {
   state = {
@@ -20,8 +21,10 @@ export class TransactionListFilters extends React.Component {
   };
 
   onCreatedAtChange = ({ startDate, endDate }) => {
-    this.props.setStartDate(startDate);
-    this.props.setEndDate(endDate);
+    this.props.startSetTransactions({ startDate, endDate }).then(() => {
+      this.props.setStartDate(startDate);
+      this.props.setEndDate(endDate);
+    });
   };
 
   onCreatedAtfocusChange = createdAtfocusedInput => {
@@ -46,7 +49,7 @@ export class TransactionListFilters extends React.Component {
         }
       >
         <div className="input-group">
-          <div className="input-group__item--xs">
+          <div className="input-group__item">
             <select
               className="select"
               value={this.props.filters.type}
@@ -58,7 +61,7 @@ export class TransactionListFilters extends React.Component {
               <option value="2">Transfer</option>
             </select>
           </div>
-          <div className="input-group__item--sm">
+          <div className="input-group__item input-group__item--grow">
             <input
               type="text"
               placeholder="Search Transactions"
@@ -108,7 +111,9 @@ const mapDispatchToProps = dispatch => ({
   setEndDate: endDate => dispatch(setEndDate(endDate)),
   setTextFilter: text => dispatch(setTextFilter(text)),
   setTypeFilter: type => dispatch(setTypeFilter(type)),
-  sortBy: sortField => dispatch(sortBy(sortField))
+  sortBy: sortField => dispatch(sortBy(sortField)),
+  startSetTransactions: dateFilters =>
+    dispatch(startSetTransactions(dateFilters))
 });
 
 export default connect(
