@@ -47,6 +47,9 @@ export default class AutoComplete extends React.Component {
     });
 
     inp.addEventListener('blur', function(e) {
+      if (e.target.closest('.autocomplete')) {
+        return;
+      }
       let inputValue = inp.value;
       const foundObj = src.find(o => o[displayField] + '' === inputValue + '');
       if (foundObj) {
@@ -71,7 +74,7 @@ export default class AutoComplete extends React.Component {
             const firstObj = src.find(
               itm => itm[valueField] + '' === value + ''
             );
-            console.log(firstObj);
+
             const display = firstObj[displayField];
             const selectedItem = firstObj;
 
