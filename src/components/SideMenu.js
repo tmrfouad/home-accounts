@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTasks } from '@fortawesome/free-solid-svg-icons';
-import { faFileInvoiceDollar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faTasks,
+  faFileInvoiceDollar,
+  faCog,
+  faHome
+} from '@fortawesome/free-solid-svg-icons';
 
 export const SideMenu = () => (
   <div className="side-menu">
+    <Link className="button button--link" to="/">
+      <FontAwesomeIcon className="font-awesome-icon" icon={faHome} />
+      <span> Home</span>
+    </Link>
     <Link className="button button--link" to="/accounts">
       <FontAwesomeIcon
         className="font-awesome-icon"
@@ -16,6 +24,10 @@ export const SideMenu = () => (
     <Link className="button button--link" to="/subjects">
       <FontAwesomeIcon className="font-awesome-icon" icon={faTasks} />
       <span> Subjects</span>
+    </Link>
+    <Link className="button button--link" to="/settings">
+      <FontAwesomeIcon className="font-awesome-icon" icon={faCog} />
+      <span> Settings</span>
     </Link>
   </div>
 );

@@ -9,6 +9,13 @@
 .form__error {
   margin: 0 0 $m-size 0;
   font-style: italic;
+  color: red;
+}
+
+.form__success {
+  margin: 0 0 $m-size $s-size;
+  font-style: italic;
+  color: green;
 }
 
 .form__action {

@@ -9,6 +9,7 @@ import accountsRducer from '../reducers/accounts';
 import subjectsRducer from '../reducers/subjects';
 import stylesReducer from '../reducers/styles';
 import transactionsSumsReducer from '../reducers/transactions-sums';
+import settingsReducer from '../reducers/settings';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -23,7 +24,8 @@ export default () => {
       accounts: accountsRducer,
       subjects: subjectsRducer,
       styles: stylesReducer,
-      transactionsSums: transactionsSumsReducer
+      transactionsSums: transactionsSumsReducer,
+      settings: settingsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

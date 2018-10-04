@@ -133,6 +133,12 @@ export class TransactionForm extends React.Component {
   //   className="text-input width-100p"
   // />
 
+  componentDidMount() {
+    if (this.state.mode === 'add') {
+      this.setState({ account: this.props.defaultAccount });
+    }
+  }
+
   render() {
     return (
       <form className="form" onSubmit={this.onSubmit}>
@@ -228,7 +234,10 @@ const mapStateToProps = state => {
   return {
     accounts: state.accounts,
     subjects: state.subjects,
-    transactionTypes
+    transactionTypes,
+    defaultAccount: state.accounts.find(
+      acc => acc.id === state.settings.defaultAccount
+    )
   };
 };
 

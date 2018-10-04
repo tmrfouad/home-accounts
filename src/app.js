@@ -16,6 +16,7 @@ import {
   startSetTransactions,
   startSetTransTotal
 } from './actions/transactions';
+import { startSetSettings } from './actions/settings';
 
 const store = configureStore();
 const jsx = (
@@ -41,6 +42,7 @@ firebase.auth().onAuthStateChanged(user => {
       .then(() => store.dispatch(startSetTransTotal()))
       .then(() => store.dispatch(startSetAccounts()))
       .then(() => store.dispatch(startSetSubjects()))
+      .then(() => store.dispatch(startSetSettings()))
       .then(() => renderApp());
   } else {
     store.dispatch(logout());
