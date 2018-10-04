@@ -45,7 +45,14 @@ export const startAddTransaction = (transactionData = {}) => {
     return database
       .ref(`users/${uid}/transactionsTotal`)
       .once('value', snap => {
-        const transactionsTotal = snap.val() + amount;
+        const transactionsTotal =
+          snap.val() +
+          (type === TransactionType.Out
+            ? -1
+            : type === TransactionType.Transfer
+              ? 0
+              : 1) *
+            amount;
         return database
           .ref(`users/${uid}/transactions`)
           .push(transaction)
@@ -78,7 +85,14 @@ export const startRemoveTransaction = ({ id } = {}) => {
         return database
           .ref(`users/${uid}/transactionsTotal`)
           .once('value', snap => {
-            const transactionsTotal = snap.val() - transaction.amount;
+            const transactionsTotal =
+              snap.val() -
+              (type === TransactionType.Out
+                ? -1
+                : type === TransactionType.Transfer
+                  ? 0
+                  : 1) *
+                transaction.amount;
             return database
               .ref(`users/${uid}/transactions/${id}`)
               .remove()
@@ -115,7 +129,12 @@ export const startEditTransaction = ({ id } = {}, updates) => {
           .once('value', snap => {
             const transactionsTotal =
               snap.val() -
-              (updates.amount ? transaction.amount + updates.amount : 0);
+              (type === TransactionType.Out
+                ? -1
+                : type === TransactionType.Transfer
+                  ? 0
+                  : 1) *
+                (updates.amount ? transaction.amount + updates.amount : 0);
             return database
               .ref(`users/${uid}/transactions/${id}`)
               .update(updates)
