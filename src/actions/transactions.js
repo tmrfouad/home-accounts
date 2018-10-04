@@ -45,14 +45,20 @@ export const startAddTransaction = (transactionData = {}) => {
     return database
       .ref(`users/${uid}/transactionsTotal`)
       .once('value', snap => {
-        const transactionsTotal =
-          snap.val() +
-          (type === TransactionType.Out
-            ? -1
-            : type === TransactionType.Transfer
-              ? 0
-              : 1) *
-            amount;
+        let transactionsTotal = snap.val();
+        switch (type) {
+          case TransactionType.In:
+            transactionsTotal += amount;
+            break;
+          case TransactionType.Out:
+            transactionsTotal -= amount;
+            break;
+          case TransactionType.Transfer:
+            break;
+          default:
+            break;
+        }
+
         return database
           .ref(`users/${uid}/transactions`)
           .push(transaction)
@@ -85,14 +91,20 @@ export const startRemoveTransaction = ({ id } = {}) => {
         return database
           .ref(`users/${uid}/transactionsTotal`)
           .once('value', snap => {
-            const transactionsTotal =
-              snap.val() -
-              (type === TransactionType.Out
-                ? -1
-                : type === TransactionType.Transfer
-                  ? 0
-                  : 1) *
-                transaction.amount;
+            let transactionsTotal = snap.val();
+            switch (transaction.type) {
+              case TransactionType.In:
+                transactionsTotal -= transaction.amount;
+                break;
+              case TransactionType.Out:
+                transactionsTotal += transaction.amount;
+                break;
+              case TransactionType.Transfer:
+                break;
+              default:
+                break;
+            }
+
             return database
               .ref(`users/${uid}/transactions/${id}`)
               .remove()
@@ -127,14 +139,60 @@ export const startEditTransaction = ({ id } = {}, updates) => {
         return database
           .ref(`users/${uid}/transactionsTotal`)
           .once('value', snap => {
-            const transactionsTotal =
-              snap.val() -
-              (type === TransactionType.Out
-                ? -1
-                : type === TransactionType.Transfer
-                  ? 0
-                  : 1) *
-                (updates.amount ? transaction.amount + updates.amount : 0);
+            let transactionsTotal = snap.val();
+            switch (transaction.type) {
+              case TransactionType.In:
+                switch (updates.type) {
+                  case TransactionType.In:
+                    transactionsTotal -= transaction.amount;
+                    transactionsTotal += updates.amount;
+                    break;
+                  case TransactionType.Out:
+                    transactionsTotal -= transaction.amount;
+                    transactionsTotal -= updates.amount;
+                    break;
+                  case TransactionType.Transfer:
+                    transactionsTotal -= transaction.amount;
+                    break;
+                  default:
+                    break;
+                }
+                break;
+              case TransactionType.Out:
+                switch (updates.type) {
+                  case TransactionType.In:
+                    transactionsTotal += transaction.amount;
+                    transactionsTotal += updates.amount;
+                    break;
+                  case TransactionType.Out:
+                    transactionsTotal += transaction.amount;
+                    transactionsTotal -= updates.amount;
+                    break;
+                  case TransactionType.Transfer:
+                    transactionsTotal += transaction.amount;
+                    break;
+                  default:
+                    break;
+                }
+                break;
+              case TransactionType.Transfer:
+                switch (updates.type) {
+                  case TransactionType.In:
+                    transactionsTotal += updates.amount;
+                    break;
+                  case TransactionType.Out:
+                    transactionsTotal -= updates.amount;
+                    break;
+                  case TransactionType.Transfer:
+                    break;
+                  default:
+                    break;
+                }
+                break;
+              default:
+                break;
+            }
+
             return database
               .ref(`users/${uid}/transactions/${id}`)
               .update(updates)
