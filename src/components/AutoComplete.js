@@ -235,6 +235,7 @@ export default class AutoComplete extends React.Component {
   render() {
     return (
       <div className="autocomplete">
+        <label>{this.props.placeholder}</label>
         <input
           id={this.props.id + '-text'}
           type="text"

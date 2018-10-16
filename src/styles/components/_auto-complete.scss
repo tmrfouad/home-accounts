@@ -2,6 +2,15 @@
   /*the container must be positioned relative:*/
   position: relative;
   display: inline-block;
+
+  > label {
+    position: absolute;
+    top: -12px;
+    left: 6px;
+    padding: 0 2px;
+    background: white;
+    color: $secondary;
+  }
 }
 
 .autocomplete-items {

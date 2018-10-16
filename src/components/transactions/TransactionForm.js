@@ -118,21 +118,6 @@ export class TransactionForm extends React.Component {
     }
   };
 
-  // <AutoComplete
-  //   id="type"
-  //   source={[
-  //     { id: 0, name: 'In' },
-  //     { id: 1, name: 'Out' },
-  //     { id: 2, name: 'Transfer' }
-  //   ]}
-  //   displayField="name"
-  //   valueField="id"
-  //   onChange={this.onATypeChange}
-  //   value={this.state.type}
-  //   placeholder="Type"
-  //   className="text-input width-100p"
-  // />
-
   componentDidMount() {
     if (this.state.mode === 'add') {
       this.setState({ account: this.props.defaultAccount });
@@ -143,19 +128,22 @@ export class TransactionForm extends React.Component {
     return (
       <form className="form" onSubmit={this.onSubmit}>
         {this.state.error && <p className="form__error">{this.state.error}</p>}
-        <select
-          className="select"
-          autoFocus
-          value={this.state.type}
-          onChange={this.onTypeChange}
-        >
-          <option value="" disabled>
-            -- Type --
-          </option>
-          <option value="0">In</option>
-          <option value="1">Out</option>
-          <option value="2">Transfer</option>
-        </select>
+        <div className="input-container">
+          <label className="input-caption">Type</label>
+          <select
+            className="select"
+            autoFocus
+            value={this.state.type}
+            onChange={this.onTypeChange}
+          >
+            <option value="" disabled>
+              -- Type --
+            </option>
+            <option value="0">In</option>
+            <option value="1">Out</option>
+            <option value="2">Transfer</option>
+          </select>
+        </div>
         <AutoComplete
           id="account"
           source={this.props.accounts}
@@ -188,14 +176,18 @@ export class TransactionForm extends React.Component {
           placeholder="Subject"
           className="text-input width-100p"
         />
-        <input
-          type="text"
-          className="text-input"
-          placeholder="Amount"
-          value={this.state.amount}
-          onChange={this.onAmountChange}
-        />
-        <div className="date-picker--full-width">
+        <div className="input-container">
+          <label className="input-caption">Amount</label>
+          <input
+            type="text"
+            className="text-input"
+            placeholder="Amount"
+            value={this.state.amount}
+            onChange={this.onAmountChange}
+          />
+        </div>
+        <div className="date-picker--full-width input-container">
+          <label className="input-caption">Date</label>
           <SingleDatePicker
             date={this.state.createdAt}
             onDateChange={this.onCreatedAtChange}
@@ -205,12 +197,15 @@ export class TransactionForm extends React.Component {
             isOutsideRange={() => false}
           />
         </div>
-        <textarea
-          className="textarea"
-          placeholder="Add a note for your transaction (optional)"
-          value={this.state.notes}
-          onChange={this.onNotesChange}
-        />
+        <div className="input-container">
+          <label className="input-caption">Notes</label>
+          <textarea
+            className="textarea"
+            placeholder="Add a note for your transaction (optional)"
+            value={this.state.notes}
+            onChange={this.onNotesChange}
+          />
+        </div>
         <div>
           <button className="button">
             {this.state.mode === 'add' ? 'Add Transaction' : 'Edit Transaction'}

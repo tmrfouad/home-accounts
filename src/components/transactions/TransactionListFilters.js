@@ -49,7 +49,8 @@ export class TransactionListFilters extends React.Component {
         }
       >
         <div className="input-group">
-          <div className="input-group__item">
+          <div className="input-group__item input-container">
+            <label className="input-caption">Type</label>
             <select
               className="select"
               value={this.props.filters.type}
@@ -61,7 +62,8 @@ export class TransactionListFilters extends React.Component {
               <option value="2">Transfer</option>
             </select>
           </div>
-          <div className="input-group__item input-group__item--grow">
+          <div className="input-group__item input-group__item--grow input-container">
+            <label className="input-caption">Search</label>
             <input
               type="text"
               placeholder="Search Transactions"
@@ -70,7 +72,8 @@ export class TransactionListFilters extends React.Component {
               onChange={this.onTextFilterChange}
             />
           </div>
-          <div className="input-group__item date-picker--full-width-mobile">
+          <div className="input-group__item date-picker--full-width-mobile input-container">
+            <label className="input-caption">Date</label>
             <DateRangePicker
               startDate={this.props.filters.startDate}
               startDateId="your_unique_start_date_id"
@@ -84,7 +87,8 @@ export class TransactionListFilters extends React.Component {
               showClearDates={true}
             />
           </div>
-          <div className="input-group__item">
+          <div className="input-group__item input-container">
+            <label className="input-caption">Sort</label>
             <select
               className="select"
               value={this.props.filters.sortBy}

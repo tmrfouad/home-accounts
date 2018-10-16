@@ -15,3 +15,17 @@
   @extend .text-input;
   height: 10rem;
 }
+
+.input-container {
+  position: relative;
+}
+
+.input-caption {
+  position: absolute;
+  top: -12px;
+  left: 6px;
+  padding: 0 2px;
+  background: white;
+  z-index: 4;
+  color: $secondary;
+}
