@@ -26,6 +26,6 @@
   left: 6px;
   padding: 0 2px;
   background: white;
-  z-index: 4;
+  z-index: $input-caption-z-index;
   color: $secondary;
 }

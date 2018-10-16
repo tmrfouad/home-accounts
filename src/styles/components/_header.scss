@@ -3,7 +3,7 @@
   background: $dark-blue;
   height: $header-height;
   width: calc(100% - #{$sidebar-width});
-  z-index: 5;
+  z-index: $header-z-index;
   margin-left: $sidebar-width;
 
   @media screen and (max-width: $desktop-breakpoint) {

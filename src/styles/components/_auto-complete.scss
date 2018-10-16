@@ -18,7 +18,7 @@
   border: 1px solid $light-gray;
   border-bottom: none;
   border-top: none;
-  z-index: 99;
+  z-index: $auto-complete-z-index;
   /*position the autocomplete items to be the same width as the container:*/
   top: 100%;
   left: 0;
