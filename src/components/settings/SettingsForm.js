@@ -8,6 +8,7 @@ export class SettingsForm extends React.Component {
     super(props);
     this.state = {
       defaultAccount: props.settings ? props.settings.defaultAccount : '',
+      newAfterSave: props.settings ? props.settings.newAfterSave : 0,
       error: '',
       success: false
     };
@@ -19,6 +20,12 @@ export class SettingsForm extends React.Component {
     });
   };
 
+  onNewAfterSaveChange = e => {
+    this.setState({
+      newAfterSave: e.target.checked
+    });
+  };
+
   onSave = e => {
     e.preventDefault();
     if (!this.state.defaultAccount) {
@@ -27,7 +34,8 @@ export class SettingsForm extends React.Component {
     }
     this.props
       .startSaveSettings({
-        defaultAccount: this.state.defaultAccount
+        defaultAccount: this.state.defaultAccount,
+        newAfterSave: this.state.newAfterSave
       })
       .then(() => {
         this.setState({ error: '', success: true });
@@ -71,6 +79,18 @@ export class SettingsForm extends React.Component {
             placeholder="Default Account"
             className="text-input width-100p"
           />
+          <div>
+            <input
+              type="checkbox"
+              id="newAfterSave"
+              value={this.state.newAfterSave.toString()}
+              checked={this.state.newAfterSave}
+              onChange={this.onNewAfterSaveChange}
+            />
+            <label htmlFor="newAfterSave">
+              Add new transaction after saving?
+            </label>
+          </div>
           <div>
             <button className="button form__action" onClick={this.onSave}>
               Save
