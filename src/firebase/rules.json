@@ -3,7 +3,7 @@
     ".read": false,
     ".write": false,
     "users": {
-			"$user_id": {
+      "$user_id": {
         ".read": "$user_id === auth.uid",
         ".write": "$user_id === auth.uid",
         "accounts": {
@@ -92,6 +92,9 @@
           ".validate": "newData.hasChildren(['defaultAccount'])",
           "defaultAccount": {
             ".validate": "newData.isString() && newData.val().length > 0"
+          },
+          "newAfterSave": {
+            ".validate": "newData.isBoolean()"
           },
           "$other": {
             ".validate": false

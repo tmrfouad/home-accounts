@@ -115,6 +115,26 @@ export class TransactionForm extends React.Component {
         createdAt: this.state.createdAt.valueOf(),
         notes: this.state.notes
       });
+
+      if (this.props.settings.newAfterSave && this.state.mode === 'add') {
+        this.setState({
+          type: TransactionType.Out,
+          account: this.props.defaultAccount,
+          toAccount: {
+            id: '',
+            name: ''
+          },
+          subject: {
+            id: '',
+            name: ''
+          },
+          amount: '',
+          createdAt: moment(),
+          notes: ''
+        });
+        const subjectInput = document.getElementById('subject-text');
+        subjectInput.focus();
+      }
     }
   };
 
@@ -232,7 +252,8 @@ const mapStateToProps = state => {
     transactionTypes,
     defaultAccount: state.accounts.find(
       acc => acc.id === state.settings.defaultAccount
-    )
+    ),
+    settings: state.settings
   };
 };
 

@@ -7,7 +7,9 @@ import { BackButton } from '../BackButton';
 export class AddTransactionPage extends React.Component {
   onSubmit = transaction => {
     this.props.startAddTransaction(transaction);
-    this.props.history.push('/transactions');
+    if (!this.props.settings.newAfterSave) {
+      this.props.history.push('/transactions');
+    }
   };
   render() {
     return (
@@ -39,7 +41,8 @@ export class AddTransactionPage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  styles: state.styles
+  styles: state.styles,
+  settings: state.settings
 });
 
 const mapDispatchToProps = dispatch => ({
