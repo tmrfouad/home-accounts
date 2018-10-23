@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import numeral from 'numeral';
 
-const ExpenseListItem = ({ id, description, amount, createdAt }) => (
+const ExpenseListItem = ({ id, description, amount, createdAt, settings }) => (
   <Link className="list-item" to={`/edit/${id}`}>
     <div>
       <h3 className="list-item__title">{description}</h3>
@@ -12,9 +13,13 @@ const ExpenseListItem = ({ id, description, amount, createdAt }) => (
       </span>
     </div>
     <h3 className="list-item__data">
-      {numeral(amount / 100).format('$0,0.00')}
+      {settings.currencySymbol + numeral(amount / 100).format('0,0.00')}
     </h3>
   </Link>
 );
 
-export default ExpenseListItem;
+const mapStateToProps = state => ({
+  settings: state.settings
+});
+
+export default connect(mapStateToProps)(ExpenseListItem);

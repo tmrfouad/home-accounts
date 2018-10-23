@@ -9,7 +9,8 @@ export const ExpensesSummary = ({
   styles,
   expenseCount,
   expensesTotal,
-  hiddenExpensesCount
+  hiddenExpensesCount,
+  settings
 }) => (
   <div className="page-header">
     <div
@@ -22,7 +23,10 @@ export const ExpensesSummary = ({
       <h2 className="page-header__title">
         Viewing <span>{expenseCount || 0}</span> expense
         {expenseCount === 1 ? '' : 's'} totalling{' '}
-        <span>{numeral(expensesTotal / 100).format('$0,0.00')}</span>
+        <span>
+          {settings.currencySymbol +
+            numeral(expensesTotal / 100).format('0,0.00')}
+        </span>
       </h2>
       {hiddenExpensesCount > 0 && (
         <h4>
@@ -46,7 +50,8 @@ const mapStateToProps = state => {
     expenseCount: visibleExpenses.length,
     expensesTotal: selectExpensesTotal(visibleExpenses),
     hiddenExpensesCount: hiddenExpensesCount,
-    styles: state.styles
+    styles: state.styles,
+    settings: state.settings
   };
 };
 

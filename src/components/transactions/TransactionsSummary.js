@@ -9,7 +9,8 @@ export const TransactionsSummary = ({
   styles,
   transactionCount,
   transactionsTotal,
-  visibleTransactionsTotal
+  visibleTransactionsTotal,
+  settings
 }) => (
   <div className="page-header">
     <div
@@ -32,16 +33,20 @@ export const TransactionsSummary = ({
                 : 'negative'
           }
         >
-          {numeral(
-            ((visibleTransactionsTotal >= 0 ? 1 : -1) *
-              visibleTransactionsTotal) /
-              100
-          ).format('$0,0.00')}
+          {settings.currencySymbol +
+            numeral(
+              ((visibleTransactionsTotal >= 0 ? 1 : -1) *
+                visibleTransactionsTotal) /
+                100
+            ).format('0,0.00')}
         </span>
       </h2>
       <h4>
         Net balance:{' '}
-        <span>{numeral(transactionsTotal / 100).format('$0,0.00')}</span>
+        <span>
+          {settings.currencySymbol +
+            numeral(transactionsTotal / 100).format('0,0.00')}
+        </span>
       </h4>
       <div className="page-header__actions">
         <Link className="button" to="/transcreate">
@@ -62,7 +67,8 @@ const mapStateToProps = state => {
     transactionCount: visibleTransactions.length,
     transactionsTotal: state.transactionsSums.transactionsTotal,
     visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
-    styles: state.styles
+    styles: state.styles,
+    settings: state.settings
   };
 };
 

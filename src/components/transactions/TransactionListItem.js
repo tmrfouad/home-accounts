@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import numeral from 'numeral';
@@ -16,7 +17,8 @@ const TransactionListItem = ({
   subject,
   amount,
   createdAt,
-  notes
+  notes,
+  settings
 }) => (
   <Link className="list-item" to={`/transedit/${id}`}>
     <div>
@@ -36,7 +38,7 @@ const TransactionListItem = ({
       )}
     </div>
     <h3 className="list-item__data">
-      {numeral(amount / 100).format('$0,0.00')}
+      {settings.currencySymbol + numeral(amount / 100).format('0,0.00')}
       <span
         className={
           'list-item__icon ' +
@@ -61,4 +63,8 @@ const TransactionListItem = ({
   </Link>
 );
 
-export default TransactionListItem;
+const mapStateToProps = state => ({
+  settings: state.settings
+});
+
+export default connect(mapStateToProps)(TransactionListItem);

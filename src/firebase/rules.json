@@ -89,12 +89,15 @@
           ".validate": "newData.isNumber()"
         },
         "settings": {
-          ".validate": "newData.hasChildren(['defaultAccount'])",
+          ".validate": "newData.hasChildren(['defaultAccount', 'newAfterSave', 'currencySymbol'])",
           "defaultAccount": {
             ".validate": "newData.isString() && newData.val().length > 0"
           },
           "newAfterSave": {
             ".validate": "newData.isBoolean()"
+          },
+          "currencySymbol": {
+            ".validate": "newData.isString() && newData.val().length > 0"
           },
           "$other": {
             ".validate": false

@@ -9,6 +9,7 @@ export class SettingsForm extends React.Component {
     this.state = {
       defaultAccount: props.settings ? props.settings.defaultAccount : '',
       newAfterSave: props.settings ? props.settings.newAfterSave : 0,
+      currencySymbol: props.settings ? props.settings.currencySymbol : '',
       error: '',
       success: false
     };
@@ -17,6 +18,12 @@ export class SettingsForm extends React.Component {
   onDefaultAccountChange = defaultAccount => {
     this.setState({
       defaultAccount
+    });
+  };
+
+  onCurrencySymbolChange = e => {
+    this.setState({
+      currencySymbol: e.target.value
     });
   };
 
@@ -32,10 +39,15 @@ export class SettingsForm extends React.Component {
       this.setState({ error: 'Please select a default account.' });
       return;
     }
+    if (!this.state.currencySymbol) {
+      this.setState({ error: 'Please select a currency symbol.' });
+      return;
+    }
     this.props
       .startSaveSettings({
         defaultAccount: this.state.defaultAccount,
-        newAfterSave: this.state.newAfterSave
+        newAfterSave: this.state.newAfterSave,
+        currencySymbol: this.state.currencySymbol
       })
       .then(() => {
         this.setState({ error: '', success: true });
@@ -79,6 +91,16 @@ export class SettingsForm extends React.Component {
             placeholder="Default Account"
             className="text-input width-100p"
           />
+          <div className="input-container">
+            <label className="input-caption">Currency Symbol</label>
+            <input
+              type="text"
+              className="text-input"
+              placeholder="Currency Symbol"
+              value={this.state.currencySymbol}
+              onChange={this.onCurrencySymbolChange}
+            />
+          </div>
           <div>
             <input
               type="checkbox"
