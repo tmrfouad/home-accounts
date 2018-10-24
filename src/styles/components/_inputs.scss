@@ -16,19 +16,20 @@
   height: 10rem;
 }
 
-.input-container {
-  position: relative;
-}
+// .input-container {
+//   position: relative;
+// }
 
-.input-caption {
-  position: absolute;
-  top: -12px;
-  left: 6px;
-  padding: 0 2px;
-  background: white;
-  z-index: $input-caption-z-index;
-  color: $secondary;
-}
+// .input-caption {
+//   position: absolute;
+//   top: -14px;
+//   left: 6px;
+//   padding: 0 2px;
+//   background: white;
+//   z-index: $input-caption-z-index;
+//   color: $secondary;
+//   line-height: 1em;
+// }
 
 input[type='checkbox'] {
   margin: $s-size;

@@ -38,8 +38,9 @@ firebase.auth().onAuthStateChanged(user => {
   if (user) {
     store.dispatch(login(user.uid));
     store
-      .dispatch(startSetTransactions())
-      .then(() => store.dispatch(startSetTransTotal()))
+      // .dispatch(startSetTransactions())
+      // .then(() => store.dispatch(startSetTransTotal()))
+      .dispatch(startSetTransTotal())
       .then(() => store.dispatch(startSetAccounts()))
       .then(() => store.dispatch(startSetSubjects()))
       .then(() => store.dispatch(startSetSettings()))

@@ -81,6 +81,7 @@ export class SettingsForm extends React.Component {
           {this.state.error && (
             <div className="form__error">{this.state.error}</div>
           )}
+          <label>Default Account:</label>
           <AutoComplete
             id="defaultAccount"
             source={this.props.accounts}
@@ -91,8 +92,8 @@ export class SettingsForm extends React.Component {
             placeholder="Default Account"
             className="text-input width-100p"
           />
-          <div className="input-container">
-            <label className="input-caption">Currency Symbol</label>
+          <div>
+            <label>Currency Symbol:</label>
             <input
               type="text"
               className="text-input"

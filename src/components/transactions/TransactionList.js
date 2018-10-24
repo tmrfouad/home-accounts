@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import TransactionListItem from './TransactionListItem';
 import selectTransactions from '../../selectors/transactions';
 
-export const TransactionList = ({ styles, transactions }) => (
+export const TransactionList = ({ styles, transactions, loading }) => (
   <div
     className={
       styles.collapsed
@@ -17,7 +17,11 @@ export const TransactionList = ({ styles, transactions }) => (
       <div className="show-for-desktop">Amount</div>
     </div>
     <div className="list-body">
-      {transactions.length === 0 ? (
+      {loading ? (
+        <div className="list-item list-item--message">
+          <span>Loading ...</span>
+        </div>
+      ) : transactions.length === 0 ? (
         <div className="list-item list-item--message">
           <span>No Transactions</span>
         </div>
