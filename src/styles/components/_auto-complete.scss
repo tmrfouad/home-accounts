@@ -12,6 +12,14 @@
   //   color: $secondary;
   //   line-height: 1em;
   // }
+  > input[type='text'] {
+    border: 1px solid $light-gray;
+    font-size: $font-size-large;
+    font-weight: 300;
+    height: 48px;
+    padding: $s-size;
+    width: 100%;
+  }
 }
 
 .autocomplete-items {

@@ -13,6 +13,10 @@
 .input-group__item {
   margin-right: $s-size;
   margin-bottom: $s-size;
+
+  @media (max-width: $desktop-breakpoint) {
+    margin-right: 0;
+  }
 }
 
 .input-group__item--grow {

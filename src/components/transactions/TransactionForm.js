@@ -169,7 +169,7 @@ export class TransactionForm extends React.Component {
           onChange={this.onAccountChange}
           value={this.state.account.id}
           placeholder="Account"
-          className="text-input width-100p"
+          className="width-100p"
         />
         {this.state.type === TransactionType.Transfer && (
           <AutoComplete
@@ -180,7 +180,7 @@ export class TransactionForm extends React.Component {
             onChange={this.onToAccountChange}
             value={this.state.toAccount.id}
             placeholder="To Account"
-            className="text-input width-100p"
+            className="width-100p"
           />
         )}
         <AutoComplete
@@ -191,7 +191,7 @@ export class TransactionForm extends React.Component {
           onChange={this.onSubjectChange}
           value={this.state.subject.id}
           placeholder="Subject"
-          className="text-input width-100p"
+          className="width-100p"
         />
         <input
           type="text"

@@ -89,7 +89,7 @@ export class SettingsForm extends React.Component {
             onChange={this.onDefaultAccountChange}
             value={this.state.defaultAccount}
             placeholder="Default Account"
-            className="text-input width-100p"
+            className="width-100p"
             showLabel
           />
           <div>
