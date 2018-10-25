@@ -29,7 +29,7 @@
           }
         },
         "transactions": {
-          ".indexOn": "createdAt",
+          ".indexOn": ["createdAt"],
           "$transaction_id": {
             ".validate": "newData.hasChildren(['type', 'account', 'toAccount', 'subject', 'amount', 'createdAt', 'notes'])",
             "type": {

@@ -16,6 +16,7 @@ import NotFoundPage from '../components/NotFoundPage';
 import createHistory from 'history/createBrowserHistory';
 import PrivateRoute from './PrivateRoute';
 import SettingsForm from '../components/settings/SettingsForm';
+import AccountTransactionsPage from '../components/account-transactions/AccountTransactionsPage';
 
 export const history = createHistory();
 
@@ -40,6 +41,7 @@ const AppRouter = () => (
         <PrivateRoute path="/subjectform/:id" component={SubjectForm} />
         <PrivateRoute path="/subjectform" component={SubjectForm} />
         <PrivateRoute path="/settings" component={SettingsForm} />
+        <PrivateRoute path="/acctrans" component={AccountTransactionsPage} />
         <PublicRoute component={NotFoundPage} />
       </Switch>
     </div>
