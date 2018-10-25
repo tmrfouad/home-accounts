@@ -8,7 +8,7 @@ import authReducer from '../reducers/auth';
 import accountsRducer from '../reducers/accounts';
 import subjectsRducer from '../reducers/subjects';
 import stylesReducer from '../reducers/styles';
-import transactionsSumsReducer from '../reducers/transactions-sums';
+import transactionsPropsReducer from '../reducers/transactions-props';
 import settingsReducer from '../reducers/settings';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -24,7 +24,7 @@ export default () => {
       accounts: accountsRducer,
       subjects: subjectsRducer,
       styles: stylesReducer,
-      transactionsSums: transactionsSumsReducer,
+      transactionsProps: transactionsPropsReducer,
       settings: settingsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))

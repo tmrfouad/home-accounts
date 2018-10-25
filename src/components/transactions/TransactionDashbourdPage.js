@@ -2,18 +2,17 @@ import React from 'react';
 import TransactionList from './TransactionList';
 import TransactionListFilters from './TransactionListFilters';
 import TransactionsSummary from './TransactionsSummary';
-import { startSetTransactions } from '../../actions/transactions';
+import {
+  startSetTransactions,
+  setTransLoading
+} from '../../actions/transactions';
 import { connect } from 'react-redux';
+import LoadingSpinner from '../LoadingSpinner';
 
 class TransactionDashbourdPage extends React.Component {
-  state = {
-    loading: true
-  };
-
   componentDidMount() {
-    this.props.startSetTransactions().then(() => {
-      this.setState({ loading: false });
-    });
+    this.props.setTransLoading(true);
+    this.props.startSetTransactions();
   }
 
   render() {
@@ -21,14 +20,15 @@ class TransactionDashbourdPage extends React.Component {
       <div>
         <TransactionsSummary />
         <TransactionListFilters />
-        <TransactionList loading={this.state.loading} />
+        <TransactionList />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  startSetTransactions: () => dispatch(startSetTransactions())
+  startSetTransactions: () => dispatch(startSetTransactions()),
+  setTransLoading: loading => dispatch(setTransLoading(loading))
 });
 
 export default connect(

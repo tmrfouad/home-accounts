@@ -1,8 +1,9 @@
 import React from 'react';
+import LoadingSkFoldingCube from './LoadingSkFoldingCube';
 
 export const LoadingPage = () => (
   <div className="loader">
-    <img className="loader__image" src="/images/loader.gif" />
+    <LoadingSkFoldingCube />
   </div>
 );
 

@@ -4,6 +4,10 @@ export default (state = {}, action) => {
       return {
         transactionsTotal: action.transactionsTotal
       };
+    case 'SET_TRANS_LOADING':
+      return {
+        loading: action.loading
+      };
     default:
       return state;
   }

@@ -231,6 +231,7 @@ export const startSetTransactions = (filters = defaultFilters) => {
       : query;
     query = filters.endDate ? query.endAt(filters.endDate.valueOf()) : query;
 
+    dispatch(setTransLoading(true));
     return query.once('value', snap => {
       const transactions = [];
       snap.forEach(childSnap => {
@@ -241,6 +242,7 @@ export const startSetTransactions = (filters = defaultFilters) => {
       });
 
       dispatch(setTransactions(transactions));
+      dispatch(setTransLoading(false));
     });
   };
 };
@@ -262,5 +264,13 @@ export const startSetTransTotal = () => {
       const transactionsTotal = snap.val();
       dispatch(setTransTotal(transactionsTotal));
     });
+  };
+};
+
+// SET_TRANS_LOADING
+export const setTransLoading = loading => {
+  return {
+    type: 'SET_TRANS_LOADING',
+    loading
   };
 };

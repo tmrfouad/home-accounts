@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import TransactionListItem from './TransactionListItem';
 import selectTransactions from '../../selectors/transactions';
+import LoadingSpinner from '../LoadingSpinner';
 
 export const TransactionList = ({ styles, transactions, loading }) => (
   <div
@@ -18,9 +19,7 @@ export const TransactionList = ({ styles, transactions, loading }) => (
     </div>
     <div className="list-body">
       {loading ? (
-        <div className="list-item list-item--message">
-          <span>Loading ...</span>
-        </div>
+        <LoadingSpinner />
       ) : transactions.length === 0 ? (
         <div className="list-item list-item--message">
           <span>No Transactions</span>
@@ -40,7 +39,8 @@ const mapStateToProps = state => {
       state.transactions,
       state.transactionFilters
     ),
-    styles: state.styles
+    styles: state.styles,
+    loading: state.transactionsProps.loading
   };
 };
 

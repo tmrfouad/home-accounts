@@ -65,7 +65,7 @@ const mapStateToProps = state => {
 
   return {
     transactionCount: visibleTransactions.length,
-    transactionsTotal: state.transactionsSums.transactionsTotal,
+    transactionsTotal: state.transactionsProps.transactionsTotal,
     visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
     styles: state.styles,
     settings: state.settings
