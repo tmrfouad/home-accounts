@@ -1,6 +1,6 @@
 import React from 'react';
 import selectTransactions from '../../selectors/account-transactions';
-import selectTransactionsTotal from '../../selectors/transactions-total';
+import selectTransactionsTotal from '../../selectors/account-transactions-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
@@ -66,7 +66,10 @@ const mapStateToProps = state => {
   return {
     transactionCount: visibleTransactions.length,
     transactionsTotal: state.accountTransactionsProps.transactionsTotal,
-    visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
+    visibleTransactionsTotal: selectTransactionsTotal(
+      visibleTransactions,
+      state.accountTransactionFilters.accountId
+    ),
     styles: state.styles,
     settings: state.settings
   };
