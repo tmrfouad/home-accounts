@@ -85,6 +85,15 @@ export const startSetAccounts = () => {
   };
 };
 
+// SET_ACCOUNT_TOTAL
+export const setAccountTotal = (id, total = 0) => {
+  return {
+    type: 'SET_ACCOUNT_TOTAL',
+    id,
+    total
+  };
+};
+
 // SET_ACCOUNTS_TOTAL
 export const setAccountsTotals = (accountsTotals = []) => {
   return {

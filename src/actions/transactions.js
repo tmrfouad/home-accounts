@@ -2,6 +2,7 @@ import database from '../firebase/firebase';
 import TransactionType from '../enums/TransactionType';
 import moment from 'moment';
 import selectTransactionsTotal from '../selectors/transactions-total';
+import { setAccountTotal } from './accounts';
 
 // ADD_TRANSACTION
 export const addTransaction = transaction => ({
@@ -44,35 +45,91 @@ export const startAddTransaction = (transactionData = {}) => {
     // console.log(JSON.stringify(transaction));
 
     return database
-      .ref(`users/${uid}/transactionsTotal`)
-      .once('value', snap => {
-        let transactionsTotal = snap.val();
-        switch (type) {
-          case TransactionType.In:
-            transactionsTotal += amount;
-            break;
-          case TransactionType.Out:
-            transactionsTotal -= amount;
-            break;
-          case TransactionType.Transfer:
-            break;
-          default:
-            break;
-        }
-
-        return database
-          .ref(`users/${uid}/transactions`)
-          .push(transaction)
-          .then(ref => {
-            database
-              .ref(`users/${uid}/transactionsTotal`)
-              .set(transactionsTotal);
-
-            dispatch(addTransaction({ id: ref.key, ...transaction }));
-            dispatch(setTransTotal(transactionsTotal));
-          });
+      .ref(`users/${uid}/transactions`)
+      .push(transaction)
+      .then(ref => {
+        updateAddedBalance(dispatch, getState, transaction);
+        dispatch(addTransaction({ id: ref.key, ...transaction }));
       });
   };
+};
+
+const updateAddedBalance = (dispatch, getState, transaction) => {
+  const uid = getState().auth.uid;
+  const { type, account, toAccount, amount } = transaction;
+
+  return database
+    .ref(`users/${uid}/transactionsTotal`)
+    .once('value', snap => {
+      let transactionsTotal = snap.val();
+      switch (type) {
+        case TransactionType.In:
+          transactionsTotal += amount;
+          break;
+        case TransactionType.Out:
+          transactionsTotal -= amount;
+          break;
+        case TransactionType.Transfer:
+          break;
+        default:
+          break;
+      }
+
+      return database
+        .ref(`users/${uid}/transactionsTotal`)
+        .set(transactionsTotal)
+        .then(() => {
+          dispatch(setTransTotal(transactionsTotal));
+        });
+    })
+    .then(() => {
+      return database
+        .ref(`users/${uid}/accounts/${account.id}/total`)
+        .once('value', snap => {
+          let accountTotal = snap.val();
+          switch (type) {
+            case TransactionType.In:
+              accountTotal += amount;
+              break;
+            case TransactionType.Out:
+            case TransactionType.Transfer:
+              accountTotal -= amount;
+              break;
+            default:
+              break;
+          }
+
+          return database
+            .ref(`users/${uid}/accounts/${account.id}/total`)
+            .set(accountTotal)
+            .then(() => {
+              dispatch(setAccountTotal(account.id, accountTotal));
+            });
+        });
+    })
+    .then(() => {
+      if (type === TransactionType.Transfer) {
+        return database
+          .ref(`users/${uid}/accounts/${toAccount.id}/total`)
+          .once('value', snap => {
+            let accountTotal = snap.val();
+            switch (type) {
+              case TransactionType.Transfer:
+                accountTotal += amount;
+                break;
+              default:
+                break;
+            }
+
+            return database
+              .ref(`users/${uid}/accounts/${toAccount.id}/total`)
+              .set(accountTotal)
+              .then(() => {
+                dispatch(setAccountTotal(toAccount.id, accountTotal));
+              });
+          });
+      }
+    });
 };
 
 // REMOVE_TRANSACTION
@@ -121,6 +178,8 @@ export const startRemoveTransaction = ({ id } = {}) => {
       });
   };
 };
+
+const updateRemovedBalance = transaction => {};
 
 // EDIT_TRANSACTION
 export const editTransaction = ({ id } = {}, updates) => ({
@@ -209,6 +268,8 @@ export const startEditTransaction = ({ id } = {}, updates) => {
       });
   };
 };
+
+const updateEditedBalance = transaction => {};
 
 // SET_TRANSACTIONS
 export const setTransactions = transactions => ({
