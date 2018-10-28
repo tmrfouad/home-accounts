@@ -108,9 +108,18 @@ export class TransactionForm extends React.Component {
       this.setState(() => ({ error: '' }));
       this.props.onSubmit({
         type: this.state.type,
-        account: this.state.account,
-        toAccount: this.state.toAccount,
-        subject: this.state.subject,
+        account: {
+          id: this.state.account.id,
+          name: this.state.account.name
+        },
+        toAccount: {
+          id: this.state.toAccount.id,
+          name: this.state.toAccount.name
+        },
+        subject: {
+          id: this.state.subject.id,
+          name: this.state.subject.name
+        },
         amount: parseFloat(this.state.amount) * 100,
         createdAt: this.state.createdAt.valueOf(),
         notes: this.state.notes
