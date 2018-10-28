@@ -48,11 +48,6 @@ export const AccountTransactionsSummary = ({
             numeral(transactionsTotal / 100).format('0,0.00')}
         </span>
       </h4>
-      <div className="page-header__actions">
-        <Link className="button" to="/transcreate">
-          Add Transaction
-        </Link>
-      </div>
     </div>
   </div>
 );

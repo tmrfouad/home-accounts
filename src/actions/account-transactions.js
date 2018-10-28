@@ -51,9 +51,7 @@ export const setAccTransTotal = transactionsTotal => {
 export const startSetAccTransTotal = accountId => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    let query = database.ref(
-      `users/${uid}/accounts/${accountId}/transactionsTotal`
-    );
+    let query = database.ref(`users/${uid}/accounts/${accountId}/total`);
 
     return query.once('value', snap => {
       const transactionsTotal = snap.val();

@@ -1,4 +1,5 @@
 import database from '../firebase/firebase';
+import selectAccountTotal from '../selectors/account-transactions-total';
 
 // Add_ACCOUNT
 export const addAccount = account => ({
@@ -80,6 +81,49 @@ export const startSetAccounts = () => {
         });
       });
       dispatch(setAccounts(accounts));
+    });
+  };
+};
+
+// SET_ACCOUNTS_TOTAL
+export const setAccountsTotals = (accountsTotals = []) => {
+  return {
+    type: 'SET_ACCOUNTS_TOTAL',
+    accountsTotals
+  };
+};
+
+export const startUpdateAccountsTotals = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/transactions`).once('value', snap => {
+      const transactions = [];
+      snap.forEach(childSnap => {
+        transactions.push({ id: childSnap.key, ...childSnap.val() });
+      });
+
+      const accounts = getState().accounts;
+      const accountsTotals = {};
+      accounts.forEach(account => {
+        const accountTransactions = transactions.filter(transaction => {
+          return (
+            (transaction.account && transaction.account.id === account.id) ||
+            (transaction.toAccount && transaction.toAccount.id === account.id)
+          );
+        });
+
+        const total = selectAccountTotal(accountTransactions, account.id);
+
+        accountsTotals[account.id] = {
+          name: account.name,
+          total
+        };
+      });
+
+      return database
+        .ref(`users/${uid}/accounts`)
+        .update(accountsTotals)
+        .then(() => dispatch(setAccountsTotals(accountsTotals)));
     });
   };
 };

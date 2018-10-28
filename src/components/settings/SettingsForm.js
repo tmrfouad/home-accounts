@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AutoComplete from '../AutoComplete';
 import { startSaveSettings } from '../../actions/settings';
+import { startUpdateTransTotal } from '../../actions/transactions';
+import { startUpdateAccountsTotals } from '../../actions/accounts';
 
 export class SettingsForm extends React.Component {
   constructor(props) {
@@ -11,7 +13,9 @@ export class SettingsForm extends React.Component {
       newAfterSave: props.settings ? props.settings.newAfterSave : 0,
       currencySymbol: props.settings ? props.settings.currencySymbol : '',
       error: '',
-      success: false
+      success: false,
+      updateTotals: false,
+      saving: false
     };
   }
 
@@ -33,27 +37,57 @@ export class SettingsForm extends React.Component {
     });
   };
 
+  onUpdateTotalsChange = e => {
+    this.setState({
+      updateTotals: e.target.checked
+    });
+  };
+
   onSave = e => {
     e.preventDefault();
+    this.setState({ error: '', success: false, saving: true });
     if (!this.state.defaultAccount) {
       this.setState({ error: 'Please select a default account.' });
+      this.setState({ saving: false });
       return;
     }
     if (!this.state.currencySymbol) {
       this.setState({ error: 'Please select a currency symbol.' });
+      this.setState({ saving: false });
       return;
     }
-    this.props
+
+    if (this.state.updateTotals) {
+      this.props
+        .startUpdateTransTotal()
+        .then(() => this.props.startUpdateAccountsTotals())
+        .catch(error => {
+          this.setState({ error: error.message });
+        })
+        .then(() => this.saveSettings())
+        .catch(error => {
+          this.setState({ error: error.message });
+        });
+    } else {
+      this.saveSettings();
+    }
+  };
+
+  saveSettings = () => {
+    return this.props
       .startSaveSettings({
         defaultAccount: this.state.defaultAccount,
         newAfterSave: this.state.newAfterSave,
         currencySymbol: this.state.currencySymbol
       })
       .then(() => {
+        this.setState({ updateTotals: false });
         this.setState({ error: '', success: true });
+        this.setState({ saving: false });
       })
       .catch(error => {
         this.setState({ error: error.message });
+        this.setState({ saving: false });
       });
   };
 
@@ -115,9 +149,24 @@ export class SettingsForm extends React.Component {
             </label>
           </div>
           <div>
+            <input
+              type="checkbox"
+              id="updateTotals"
+              value={this.state.updateTotals.toString()}
+              checked={this.state.updateTotals}
+              onChange={this.onUpdateTotalsChange}
+            />
+            <label htmlFor="updateTotals">
+              Update Transactions / Accounts totals?
+            </label>
+          </div>
+          <div>
             <button className="button form__action" onClick={this.onSave}>
               Save
             </button>
+            {this.state.saving && (
+              <div className="form__message">Saving ...</div>
+            )}
             {this.state.success && (
               <div className="form__success">Settings saved successfully!</div>
             )}
@@ -135,7 +184,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  startSaveSettings: settings => dispatch(startSaveSettings(settings))
+  startSaveSettings: settings => dispatch(startSaveSettings(settings)),
+  startUpdateTransTotal: () => dispatch(startUpdateTransTotal()),
+  startUpdateAccountsTotals: () => dispatch(startUpdateAccountsTotals())
 });
 
 export default connect(

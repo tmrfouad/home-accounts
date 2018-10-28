@@ -8,9 +8,12 @@
         ".write": "$user_id === auth.uid",
         "accounts": {
           "$account_id": {
-            ".validate": "newData.hasChildren(['name'])",
+            ".validate": "newData.hasChildren(['name', 'total'])",
             "name": {
               ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "total": {
+              ".validate": "newData.isNumber()"
             },
             "$other": {
               ".validate": false

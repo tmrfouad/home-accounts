@@ -1,6 +1,7 @@
 import database from '../firebase/firebase';
 import TransactionType from '../enums/TransactionType';
 import moment from 'moment';
+import selectTransactionsTotal from '../selectors/transactions-total';
 
 // ADD_TRANSACTION
 export const addTransaction = transaction => ({
@@ -263,6 +264,27 @@ export const startSetTransTotal = () => {
     return query.once('value', snap => {
       const transactionsTotal = snap.val();
       dispatch(setTransTotal(transactionsTotal));
+    });
+  };
+};
+
+export const startUpdateTransTotal = () => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/transactions`).once('value', snap => {
+      const transactions = [];
+      snap.forEach(childSnap => {
+        transactions.push({ id: childSnap.key, ...childSnap.val() });
+      });
+
+      const transactionsTotal = selectTransactionsTotal(transactions);
+
+      return database
+        .ref(`users/${uid}/transactionsTotal`)
+        .set(transactionsTotal)
+        .then(() => {
+          dispatch(setTransTotal(transactionsTotal));
+        });
     });
   };
 };
