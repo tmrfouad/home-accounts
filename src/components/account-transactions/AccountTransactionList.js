@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import AccountTransactionListItem from './AccountTransactionListItem';
 import selectAccountTransactions from '../../selectors/account-transactions';
-import LoadingSpinner from '../LoadingSpinner';
+import BounceSpinner from '../spinners/BounceSpinner';
 
 export const AccountTransactionList = ({ styles, transactions, loading }) => (
   <div
@@ -19,7 +19,9 @@ export const AccountTransactionList = ({ styles, transactions, loading }) => (
     </div>
     <div className="list-body">
       {loading ? (
-        <LoadingSpinner />
+        <div className="list-item list-item--message">
+          <BounceSpinner />
+        </div>
       ) : transactions.length === 0 ? (
         <div className="list-item list-item--message">
           <span>No Transactions</span>

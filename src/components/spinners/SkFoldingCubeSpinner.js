@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const LoadingSkFoldingCube = () => (
-  <div className="sk-folding-cube">
+export const SkFoldingCubeSpinner = () => (
+  <div className="sk-folding-cube-spinner">
     <div className="sk-cube1 sk-cube" />
     <div className="sk-cube2 sk-cube" />
     <div className="sk-cube4 sk-cube" />
@@ -9,4 +9,4 @@ export const LoadingSkFoldingCube = () => (
   </div>
 );
 
-export default LoadingSkFoldingCube;
+export default SkFoldingCubeSpinner;

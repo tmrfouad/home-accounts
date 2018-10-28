@@ -1,12 +1,12 @@
-.spinner {
-  margin: auto auto;
+.v-rect-spinner {
+  margin: auto;
   width: 50px;
   height: 40px;
   text-align: center;
   font-size: 10px;
 }
 
-.spinner > div {
+.v-rect-spinner > div {
   background-color: #333;
   height: 100%;
   width: 6px;
@@ -17,22 +17,22 @@
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }
 
-.spinner .rect2 {
+.v-rect-spinner .rect2 {
   -webkit-animation-delay: -1.1s;
   animation-delay: -1.1s;
 }
 
-.spinner .rect3 {
+.v-rect-spinner .rect3 {
   -webkit-animation-delay: -1s;
   animation-delay: -1s;
 }
 
-.spinner .rect4 {
+.v-rect-spinner .rect4 {
   -webkit-animation-delay: -0.9s;
   animation-delay: -0.9s;
 }
 
-.spinner .rect5 {
+.v-rect-spinner .rect5 {
   -webkit-animation-delay: -0.8s;
   animation-delay: -0.8s;
 }

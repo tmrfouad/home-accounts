@@ -1,7 +1,7 @@
 import React from 'react';
 
-export const LoadingSpinner = () => (
-  <div className="spinner">
+export const VRectangleSpinner = () => (
+  <div className="v-rect-spinner">
     <div className="rect1" />
     <div className="rect2" />
     <div className="rect3" />
@@ -10,4 +10,4 @@ export const LoadingSpinner = () => (
   </div>
 );
 
-export default LoadingSpinner;
+export default VRectangleSpinner;

@@ -15,5 +15,8 @@
 @import './components/auto-complete';
 @import './components/sidebar';
 @import './components/datepicker_overrides';
-@import './components/spinner';
-@import './components/sk-folding-cube';
+@import './components/spinners/v-rect-spinner';
+@import './components/spinners/sk-folding-cube-spinner';
+@import './components/spinners/sk-fading-circle-spinner';
+@import './components/spinners/square-spinner';
+@import './components/spinners/bounce-spinner';

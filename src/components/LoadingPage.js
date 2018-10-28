@@ -1,9 +1,9 @@
 import React from 'react';
-import LoadingSkFoldingCube from './LoadingSkFoldingCube';
+import SkFadingCircleSpinner from './spinners/SkFadingCircleSpinner';
 
 export const LoadingPage = () => (
   <div className="loader">
-    <LoadingSkFoldingCube />
+    <SkFadingCircleSpinner />
   </div>
 );
 
