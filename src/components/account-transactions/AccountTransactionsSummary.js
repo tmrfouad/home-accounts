@@ -3,7 +3,6 @@ import selectTransactions from '../../selectors/account-transactions';
 import selectTransactionsTotal from '../../selectors/account-transactions-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
-import { Link } from 'react-router-dom';
 
 export const AccountTransactionsSummary = ({
   styles,

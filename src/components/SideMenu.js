@@ -18,10 +18,6 @@ export const SideMenu = () => (
       <FontAwesomeIcon className="font-awesome-icon" icon={faHome} />
       <span> Account Summary</span>
     </Link>
-    <Link className="button button--link" to="/acctrans">
-      <FontAwesomeIcon className="font-awesome-icon" icon={faHome} />
-      <span> Subject Summary</span>
-    </Link>
     <Link className="button button--link" to="/accounts">
       <FontAwesomeIcon
         className="font-awesome-icon"

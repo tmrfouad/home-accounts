@@ -8,7 +8,10 @@ import {
   setEndDate
 } from '../../actions/account-transaction-filters';
 import { DateRangePicker } from 'react-dates';
-import { startSetAccTransactions } from '../../actions/account-transactions';
+import {
+  startSetAccTransactions,
+  startSetAccTransTotal
+} from '../../actions/account-transactions';
 import AutoComplete from '../AutoComplete';
 
 export class AccountTransactionListFilters extends React.Component {
@@ -34,19 +37,21 @@ export class AccountTransactionListFilters extends React.Component {
 
   onAccountFilterChange = accountId => {
     this.props.setAccountFilter(accountId);
+    this.props.startSetAccTransTotal(accountId);
   };
 
   onSortSelectChange = e => {
     this.props.sortBy(e.target.value);
   };
 
-  // <input
-  //   type="text"
-  //   placeholder="Filter By Keyword"
-  //   className="text-input"
-  //   value={this.props.filters.accountId}
-  //   onChange={this.onAccountFilterChange}
-  // />
+  componentDidMount() {
+    this.props.startSetAccTransactions().then(() => {
+      if (this.props.filters.accountId) {
+        this.props.setAccountFilter(this.props.filters.accountId);
+        this.props.startSetAccTransTotal(this.props.filters.accountId);
+      }
+    });
+  }
 
   render() {
     return (
@@ -72,7 +77,7 @@ export class AccountTransactionListFilters extends React.Component {
           </div>
           <div className="input-group__item input-group__item--grow">
             <AutoComplete
-              id="defaultAccount"
+              id="accountId"
               source={this.props.accounts}
               displayField="name"
               valueField="id"
@@ -126,7 +131,8 @@ const mapDispatchToProps = dispatch => ({
   setTypeFilter: type => dispatch(setTypeFilter(type)),
   sortBy: sortField => dispatch(sortBy(sortField)),
   startSetAccTransactions: dateFilters =>
-    dispatch(startSetAccTransactions(dateFilters))
+    dispatch(startSetAccTransactions(dateFilters)),
+  startSetAccTransTotal: accountId => dispatch(startSetAccTransTotal(accountId))
 });
 
 export default connect(
