@@ -11,24 +11,9 @@ export class TransactionForm extends React.Component {
     const transaction = props.transaction;
     this.state = {
       type: transaction ? transaction.type : TransactionType.Out,
-      account: transaction
-        ? transaction.account
-        : {
-            id: '',
-            name: ''
-          },
-      toAccount: transaction
-        ? transaction.toAccount
-        : {
-            id: '',
-            name: ''
-          },
-      subject: transaction
-        ? transaction.subject
-        : {
-            id: '',
-            name: ''
-          },
+      account: transaction ? transaction.account : {},
+      toAccount: transaction ? transaction.toAccount : {},
+      subject: transaction ? transaction.subject : {},
       amount: transaction ? (transaction.amount / 100).toString() : '',
       createdAt: transaction ? moment(transaction.createdAt) : moment(),
       notes: transaction ? transaction.notes : '',
@@ -112,10 +97,13 @@ export class TransactionForm extends React.Component {
           id: this.state.account.id,
           name: this.state.account.name
         },
-        toAccount: {
-          id: this.state.toAccount.id,
-          name: this.state.toAccount.name
-        },
+        toAccount:
+          this.state.type === TransactionType.Transfer
+            ? {
+                id: this.state.toAccount.id,
+                name: this.state.toAccount.name
+              }
+            : {},
         subject: {
           id: this.state.subject.id,
           name: this.state.subject.name
@@ -176,7 +164,7 @@ export class TransactionForm extends React.Component {
           displayField="name"
           valueField="id"
           onChange={this.onAccountChange}
-          value={this.state.account.id}
+          value={this.state.account && this.state.account.id}
           placeholder="Account"
           className="width-100p"
         />
@@ -187,7 +175,7 @@ export class TransactionForm extends React.Component {
             displayField="name"
             valueField="id"
             onChange={this.onToAccountChange}
-            value={this.state.toAccount.id}
+            value={this.state.toAccount && this.state.toAccount.id}
             placeholder="To Account"
             className="width-100p"
           />
@@ -198,7 +186,7 @@ export class TransactionForm extends React.Component {
           displayField="name"
           valueField="id"
           onChange={this.onSubjectChange}
-          value={this.state.subject.id}
+          value={this.state.subject && this.state.subject.id}
           placeholder="Subject"
           className="width-100p"
         />

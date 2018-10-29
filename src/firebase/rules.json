@@ -8,7 +8,7 @@
         ".write": "$user_id === auth.uid",
         "accounts": {
           "$account_id": {
-            ".validate": "newData.hasChildren(['name', 'total'])",
+            ".validate": "newData.hasChildren(['name'])",
             "name": {
               ".validate": "newData.isString() && newData.val().length > 0"
             },
@@ -34,7 +34,7 @@
         "transactions": {
           ".indexOn": ["createdAt"],
           "$transaction_id": {
-            ".validate": "newData.hasChildren(['type', 'account', 'toAccount', 'subject', 'amount', 'createdAt', 'notes'])",
+            ".validate": "newData.hasChildren(['type', 'account', 'subject', 'amount', 'createdAt', 'notes'])",
             "type": {
               ".validate": "newData.isNumber() && (newData.val() === 0 || newData.val() === 1 || newData.val() === 2)"
             },
