@@ -211,89 +211,6 @@ const updateBalance = (operation, transaction, newTransaction) => {
         });
     }
 
-    // if (
-    //   (operation === 'edit' &&
-    //     transaction.account.id === newTransaction.account.id) ||
-    //   operation !== 'edit'
-    // ) {
-    //   // get account total
-    //   database
-    //     .ref(`users/${uid}/accounts/${account.id}/total`)
-    //     .once('value', snap => {
-    //       let accountTotal = snap.val();
-
-    //       // process total with current transaction
-    //       if (operation === 'edit') {
-    //         accountTotal = processAccountTotal(
-    //           operation,
-    //           accountTotal,
-    //           transaction,
-    //           false,
-    //           newTransaction
-    //         );
-    //       } else {
-    //         accountTotal = processAccountTotal(
-    //           operation,
-    //           accountTotal,
-    //           transaction
-    //         );
-    //       }
-
-    //       // update the total in the database
-    //       database
-    //         .ref(`users/${uid}/accounts/${account.id}/total`)
-    //         .set(accountTotal)
-    //         .then(() => {
-    //           dispatch(setAccountTotal(account.id, accountTotal));
-    //         });
-    //     });
-    // } else {
-    //   // get old account total
-    //   database
-    //     .ref(`users/${uid}/accounts/${account.id}/total`)
-    //     .once('value', snap => {
-    //       let accountTotal = snap.val();
-
-    //       // process total with current transaction
-    //       accountTotal = processAccountTotal(
-    //         'remove',
-    //         accountTotal,
-    //         transaction
-    //       );
-
-    //       // update the total in the database
-    //       database
-    //         .ref(`users/${uid}/accounts/${account.id}/total`)
-    //         .set(accountTotal)
-    //         .then(() => {
-    //           dispatch(setAccountTotal(account.id, accountTotal));
-    //         });
-    //     });
-
-    //   // get new account total
-    //   const {account: newAccount} = newTransaction;
-    //   database
-    //     .ref(`users/${uid}/accounts/${newAccount.id}/total`)
-    //     .once('value', snap => {
-    //       let accountTotal = snap.val();
-
-    //       // process total with current transaction
-    //       accountTotal = processAccountTotal(
-    //         'add',
-    //         accountTotal,
-    //         newTransaction
-    //       );
-
-    //       // update the total in the database
-    //       database
-    //         .ref(`users/${uid}/accounts/${newAccount.id}/total`)
-    //         .set(accountTotal)
-    //         .then(() => {
-    //           dispatch(setAccountTotal(newAccount.id, accountTotal));
-    //         });
-    //     });
-    // }
-
     // toAccount
     if (operation !== 'edit') {
       // if transaction type is transfer get the total of the account transfered to.
@@ -403,41 +320,6 @@ const updateBalance = (operation, transaction, newTransaction) => {
         }
       }
     }
-
-    // if (
-    //   operation === 'edit' &&
-    //   newTransaction &&
-    //   newTransaction.type === TransactionType.Transfer
-    // ) {
-    //   // if updated transaction type is transfer get the total of the account transfered to.
-    //   const { toAccount: newToAccount } = newTransaction;
-    //   database
-    //     .ref(`users/${uid}/accounts/${newToAccount.id}/total`)
-    //     .once('value', snap => {
-    //       let accountTotal = snap.val();
-
-    //       console.log(accountTotal);
-
-    //       // process total with current transaction
-    //       accountTotal = processAccountTotal(
-    //         operation,
-    //         accountTotal,
-    //         transaction,
-    //         true,
-    //         newTransaction
-    //       );
-
-    //       console.log(accountTotal);
-
-    //       // update the total in the database
-    //       database
-    //         .ref(`users/${uid}/accounts/${newToAccount.id}/total`)
-    //         .set(accountTotal)
-    //         .then(() => {
-    //           dispatch(setAccountTotal(newToAccount.id, accountTotal));
-    //         });
-    //     });
-    // }
   };
 };
 
@@ -630,16 +512,9 @@ function processTransactionsTotal(
   return result;
 }
 
-function processAccountTotal(
-  operation,
-  total,
-  transaction,
-  transTo
-  // , newTransaction
-) {
+function processAccountTotal(operation, total, transaction, transTo) {
   let result = total;
   const { type, amount } = transaction;
-  // const { type: newType, amount: newAmount } = newTransaction || {};
 
   switch (operation) {
     case 'add':
@@ -676,96 +551,6 @@ function processAccountTotal(
         result -= amount;
       }
       break;
-    // case 'edit':
-    //   if (!transTo) {
-    //     switch (type) {
-    //       case TransactionType.In:
-    //         switch (newType) {
-    //           case TransactionType.In:
-    //             result -= amount;
-    //             result += newAmount;
-    //             break;
-    //           case TransactionType.Out:
-    //           case TransactionType.Transfer:
-    //             result -= amount;
-    //             result -= newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       case TransactionType.Out:
-    //         switch (newType) {
-    //           case TransactionType.In:
-    //             result += amount;
-    //             result += newAmount;
-    //             break;
-    //           case TransactionType.Out:
-    //           case TransactionType.Transfer:
-    //             result += amount;
-    //             result -= newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       case TransactionType.Transfer:
-    //         switch (newType) {
-    //           case TransactionType.In:
-    //             result += amount;
-    //             result += newAmount;
-    //             break;
-    //           case TransactionType.Out:
-    //           case TransactionType.Transfer:
-    //             result += amount;
-    //             result -= newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   } else {
-    //     switch (type) {
-    //       case TransactionType.In:
-    //         switch (newType) {
-    //           case TransactionType.Transfer:
-    //             result += newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       case TransactionType.Out:
-    //         switch (newType) {
-    //           case TransactionType.Transfer:
-    //             result += newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       case TransactionType.Transfer:
-    //         switch (newType) {
-    //           case TransactionType.In:
-    //           case TransactionType.Out:
-    //             result -= amount;
-    //             break;
-    //           case TransactionType.Transfer:
-    //             result -= amount;
-    //             result += newAmount;
-    //             break;
-    //           default:
-    //             break;
-    //         }
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    //   break;
     default:
       break;
   }
