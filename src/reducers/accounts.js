@@ -24,7 +24,7 @@ export default (state = accountsReducerDefaultState, action) => {
       );
     case 'SET_ACCOUNTS_TOTAL':
       return state.map(account => {
-        const accountTotal = action.accountsTotals[account.id];
+        const accountTotal = action.accountsTotals[account.id].total;
         return { ...account, total: accountTotal };
       });
     default:
