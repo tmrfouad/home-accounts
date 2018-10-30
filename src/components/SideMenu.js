@@ -5,7 +5,8 @@ import {
   faTasks,
   faFileInvoiceDollar,
   faCog,
-  faHome
+  faHome,
+  faChartBar
 } from '@fortawesome/free-solid-svg-icons';
 
 export const SideMenu = () => (
@@ -15,8 +16,8 @@ export const SideMenu = () => (
       <span> Home</span>
     </Link>
     <Link className="button button--link" to="/acctrans">
-      <FontAwesomeIcon className="font-awesome-icon" icon={faHome} />
-      <span> Account Summary</span>
+      <FontAwesomeIcon className="font-awesome-icon" icon={faChartBar} />
+      <span> Ledger</span>
     </Link>
     <Link className="button button--link" to="/accounts">
       <FontAwesomeIcon

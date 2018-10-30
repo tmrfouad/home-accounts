@@ -39,10 +39,10 @@ const mapStateToProps = state => {
   return {
     transactions: selectAccountTransactions(
       state.accountTransactions,
-      state.accountTransactionFilters
+      state.accTransFilters
     ),
     styles: state.styles,
-    loading: state.accountTransactionsProps.loading
+    loading: state.accTransProps.loading
   };
 };
 

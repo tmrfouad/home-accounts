@@ -22,7 +22,7 @@ const AccountTransactionListItem = ({
   notes,
   settings
 }) => (
-  <Link className="list-item" to={`/transedit/${id}`}>
+  <div className="list-item" to={`/transedit/${id}`}>
     <div>
       <h3 className="list-item__title">{notes || subject.name}</h3>
       <span className="list-item__sub-title">
@@ -62,7 +62,7 @@ const AccountTransactionListItem = ({
         )}
       </span>
     </h3>
-  </Link>
+  </div>
 );
 
 const mapStateToProps = state => ({

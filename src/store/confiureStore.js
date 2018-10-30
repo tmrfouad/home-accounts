@@ -10,8 +10,8 @@ import subjectsRducer from '../reducers/subjects';
 import stylesReducer from '../reducers/styles';
 import transactionsPropsReducer from '../reducers/transactions-props';
 import accountTransactionsReducer from '../reducers/account-transactions';
-import accountTransactionsPropsReducer from '../reducers/account-transactions-props';
-import accountTransactionFiltersReducer from '../reducers/account-transaction-filters';
+import accTransPropsReducer from '../reducers/account-transactions-props';
+import accTransFiltersReducer from '../reducers/account-transaction-filters';
 import settingsReducer from '../reducers/settings';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -29,8 +29,8 @@ export default () => {
       styles: stylesReducer,
       transactionsProps: transactionsPropsReducer,
       accountTransactions: accountTransactionsReducer,
-      accountTransactionFilters: accountTransactionFiltersReducer,
-      accountTransactionsProps: accountTransactionsPropsReducer,
+      accTransFilters: accTransFiltersReducer,
+      accTransProps: accTransPropsReducer,
       settings: settingsReducer
     }),
     composeEnhancers(applyMiddleware(thunk))

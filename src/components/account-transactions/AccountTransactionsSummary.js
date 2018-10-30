@@ -1,15 +1,20 @@
 import React from 'react';
-import selectTransactions from '../../selectors/account-transactions';
-import selectTransactionsTotal from '../../selectors/account-transactions-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  startSetAccTransactions,
+  startSetAccTransTotal
+} from '../../actions/account-transactions';
 
 export const AccountTransactionsSummary = ({
   styles,
-  transactionCount,
   transactionsTotal,
-  visibleTransactionsTotal,
-  settings
+  settings,
+  account,
+  filters,
+  refreshTransactions
 }) => (
   <div className="page-header">
     <div
@@ -20,53 +25,52 @@ export const AccountTransactionsSummary = ({
       }
     >
       <h2 className="page-header__title">
-        Total <span>{transactionCount || 0}</span> transaction
-        {transactionCount === 1 ? '' : 's'}
-        {': '}
-        <span
-          className={
-            visibleTransactionsTotal === 0
-              ? ''
-              : visibleTransactionsTotal > 0
-                ? 'positive'
-                : 'negative'
-          }
-        >
-          {settings.currencySymbol +
-            numeral(
-              ((visibleTransactionsTotal >= 0 ? 1 : -1) *
-                visibleTransactionsTotal) /
-                100
-            ).format('0,0.00')}
-        </span>
+        {(account ? account.name : 'Account') + ' Ledger'}
       </h2>
       <h4>
-        Net balance:{' '}
+        Balance:{' '}
         <span>
           {settings.currencySymbol +
             numeral(transactionsTotal / 100).format('0,0.00')}
         </span>
       </h4>
+      <div className="page-header__actions d-inline-block">
+        <button
+          className="button button--secondary"
+          onClick={() => refreshTransactions(filters)}
+        >
+          <FontAwesomeIcon className="font-awesome-icon" icon={faSyncAlt} />
+        </button>
+      </div>
     </div>
   </div>
 );
 
 const mapStateToProps = state => {
-  const visibleTransactions = selectTransactions(
-    state.accountTransactions,
-    state.accountTransactionFilters
-  );
-
   return {
-    transactionCount: visibleTransactions.length,
-    transactionsTotal: state.accountTransactionsProps.transactionsTotal,
-    visibleTransactionsTotal: selectTransactionsTotal(
-      visibleTransactions,
-      state.accountTransactionFilters.accountId
-    ),
+    transactionsTotal: state.accTransProps.transactionsTotal,
     styles: state.styles,
-    settings: state.settings
+    settings: state.settings,
+    filters: state.accTransFilters,
+    account: state.accounts.find(
+      acc => acc.id === state.accTransFilters.accountId
+    )
   };
 };
 
-export default connect(mapStateToProps)(AccountTransactionsSummary);
+const mapDispatchToProps = dispatch => ({
+  refreshTransactions: filters => {
+    dispatch(
+      startSetAccTransactions({
+        startDate: filters.startDate,
+        endDate: filters.endDate
+      })
+    );
+    dispatch(startSetAccTransTotal(filters.accountId));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AccountTransactionsSummary);

@@ -335,10 +335,6 @@ const defaultFilters = {
 };
 
 export const startSetTransactions = (filters = defaultFilters) => {
-  // console.log(filters.startDate);
-  // console.log(filters.endDate);
-  // console.log(filters.startDate.startOf('day'));
-  // console.log(filters.endDate.endOf('day'));
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
     let query = database

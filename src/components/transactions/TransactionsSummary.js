@@ -4,13 +4,24 @@ import selectTransactionsTotal from '../../selectors/transactions-total';
 import { connect } from 'react-redux';
 import numeral from 'numeral';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  startSetTransactions,
+  startSetTransTotal
+} from '../../actions/transactions';
+import TransactionType from '../../enums/TransactionType';
 
 export const TransactionsSummary = ({
   styles,
   transactionCount,
   transactionsTotal,
   visibleTransactionsTotal,
-  settings
+  inTransactionsTotal,
+  outTransactionsTotal,
+  settings,
+  filters,
+  refreshTransactions
 }) => (
   <div className="page-header">
     <div
@@ -24,21 +35,17 @@ export const TransactionsSummary = ({
         Total <span>{transactionCount || 0}</span> transaction
         {transactionCount === 1 ? '' : 's'}
         {': '}
-        <span
-          className={
-            visibleTransactionsTotal === 0
-              ? ''
-              : visibleTransactionsTotal > 0
-                ? 'positive'
-                : 'negative'
-          }
-        >
-          {settings.currencySymbol +
-            numeral(
-              ((visibleTransactionsTotal >= 0 ? 1 : -1) *
-                visibleTransactionsTotal) /
-                100
-            ).format('0,0.00')}
+        <br />
+        <span className="positive">
+          {inTransactionsTotal !== 0 &&
+            settings.currencySymbol +
+              numeral(inTransactionsTotal / 100).format('0,0.00')}
+        </span>
+        <span className="negative">
+          {outTransactionsTotal !== 0 &&
+            ' ' +
+              settings.currencySymbol +
+              numeral((-1 * outTransactionsTotal) / 100).format('0,0.00')}
         </span>
       </h2>
       <h4>
@@ -48,10 +55,23 @@ export const TransactionsSummary = ({
             numeral(transactionsTotal / 100).format('0,0.00')}
         </span>
       </h4>
-      <div className="page-header__actions">
+      <div className="page-header__actions d-inline-block">
         <Link className="button" to="/transcreate">
           Add Transaction
         </Link>
+      </div>
+      <div className="page-header__actions d-inline-block">
+        <button
+          className="button button--secondary"
+          onClick={() =>
+            refreshTransactions({
+              startDate: filters.startDate,
+              endDate: filters.endDate
+            })
+          }
+        >
+          <FontAwesomeIcon className="font-awesome-icon" icon={faSyncAlt} />
+        </button>
       </div>
     </div>
   </div>
@@ -63,13 +83,33 @@ const mapStateToProps = state => {
     state.transactionFilters
   );
 
+  const inTransactions = visibleTransactions.filter(
+    trans => trans.type === TransactionType.In
+  );
+  const outTransactions = visibleTransactions.filter(
+    trans => trans.type === TransactionType.Out
+  );
+
   return {
     transactionCount: visibleTransactions.length,
     transactionsTotal: state.transactionsProps.transactionsTotal,
     visibleTransactionsTotal: selectTransactionsTotal(visibleTransactions),
+    inTransactionsTotal: selectTransactionsTotal(inTransactions),
+    outTransactionsTotal: selectTransactionsTotal(outTransactions),
     styles: state.styles,
-    settings: state.settings
+    settings: state.settings,
+    filters: state.transactionFilters
   };
 };
 
-export default connect(mapStateToProps)(TransactionsSummary);
+const mapDispatchToProps = dispatch => ({
+  refreshTransactions: dateFilters => {
+    dispatch(startSetTransactions(dateFilters));
+    dispatch(startSetTransTotal());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TransactionsSummary);
