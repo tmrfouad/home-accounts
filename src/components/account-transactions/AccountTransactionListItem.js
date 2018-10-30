@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 import numeral from 'numeral';
 import TransactionTypes from '../../enums/TransactionType';
@@ -22,7 +21,7 @@ const AccountTransactionListItem = ({
   notes,
   settings
 }) => (
-  <div className="list-item" to={`/transedit/${id}`}>
+  <div className="list-item">
     <div>
       <h3 className="list-item__title">{notes || subject.name}</h3>
       <span className="list-item__sub-title">

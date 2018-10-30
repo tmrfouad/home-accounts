@@ -32,6 +32,7 @@ export class AccountList extends React.Component {
         >
           <div className="list-header">
             <div>Name</div>
+            <div>Balance</div>
           </div>
           <div className="list-body">
             {this.props.accounts.length === 0 ? (
