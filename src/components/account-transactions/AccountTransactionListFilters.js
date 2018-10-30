@@ -99,6 +99,7 @@ export class AccountTransactionListFilters extends React.Component {
               isOutsideRange={() => false}
               numberOfMonths={1}
               showClearDates={true}
+              minimumNights={0}
             />
           </div>
           <div className="input-group__item">
@@ -120,7 +121,7 @@ export class AccountTransactionListFilters extends React.Component {
 
 const mapStateToProps = state => ({
   accounts: state.accounts,
-  filters: state.accountTransactionFilters,
+  filters: state.accTransFilters,
   styles: state.styles
 });
 

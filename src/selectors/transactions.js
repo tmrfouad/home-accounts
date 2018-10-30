@@ -8,8 +8,11 @@ export default (transactions, { typeId, startDate, endDate, text, sortBy }) => {
       return (
         (typeId === -1 || transaction.type === typeId) &&
         (!startDate ||
-          moment(transaction.createdAt).isSameOrAfter(startDate)) &&
-        (!endDate || moment(transaction.createdAt).isSameOrBefore(endDate)) &&
+          moment(transaction.createdAt).isSameOrAfter(
+            startDate.startOf('day')
+          )) &&
+        (!endDate ||
+          moment(transaction.createdAt).isSameOrBefore(endDate.endOf('day'))) &&
         (!text ||
           (transaction.account.name
             .toLowerCase()

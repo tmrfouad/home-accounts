@@ -82,6 +82,7 @@ export class TransactionListFilters extends React.Component {
               isOutsideRange={() => false}
               numberOfMonths={1}
               showClearDates={true}
+              minimumNights={0}
             />
           </div>
           <div className="input-group__item">

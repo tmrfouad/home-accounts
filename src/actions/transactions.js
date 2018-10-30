@@ -335,15 +335,21 @@ const defaultFilters = {
 };
 
 export const startSetTransactions = (filters = defaultFilters) => {
+  // console.log(filters.startDate);
+  // console.log(filters.endDate);
+  // console.log(filters.startDate.startOf('day'));
+  // console.log(filters.endDate.endOf('day'));
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
     let query = database
       .ref(`users/${uid}/transactions`)
       .orderByChild('createdAt');
     query = filters.startDate
-      ? query.startAt(filters.startDate.valueOf())
+      ? query.startAt(filters.startDate.startOf('day').valueOf())
       : query;
-    query = filters.endDate ? query.endAt(filters.endDate.valueOf()) : query;
+    query = filters.endDate
+      ? query.endAt(filters.endDate.endOf('day').valueOf())
+      : query;
 
     dispatch(setTransLoading(true));
     return query.once('value', snap => {
