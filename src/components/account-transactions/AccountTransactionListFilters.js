@@ -46,9 +46,11 @@ export class AccountTransactionListFilters extends React.Component {
 
   componentDidMount() {
     this.props.startSetAccTransactions().then(() => {
-      if (this.props.filters.accountId) {
-        this.props.setAccountFilter(this.props.filters.accountId);
-        this.props.startSetAccTransTotal(this.props.filters.accountId);
+      const accountId =
+        this.props.defaultAccountId || this.props.filters.accountId;
+      if (accountId) {
+        this.props.setAccountFilter(accountId);
+        this.props.startSetAccTransTotal(accountId);
       }
     });
   }
@@ -122,7 +124,8 @@ export class AccountTransactionListFilters extends React.Component {
 const mapStateToProps = state => ({
   accounts: state.accounts,
   filters: state.accTransFilters,
-  styles: state.styles
+  styles: state.styles,
+  defaultAccountId: state.settings.defaultAccount
 });
 
 const mapDispatchToProps = dispatch => ({
