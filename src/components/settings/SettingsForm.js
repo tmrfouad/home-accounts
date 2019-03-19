@@ -12,6 +12,7 @@ export class SettingsForm extends React.Component {
       defaultAccount: props.settings ? props.settings.defaultAccount : '',
       newAfterSave: props.settings ? props.settings.newAfterSave : 0,
       currencySymbol: props.settings ? props.settings.currencySymbol : '',
+      monthStart: props.settings ? props.settings.monthStart : 1,
       error: '',
       success: false,
       updateTotals: false,
@@ -30,6 +31,12 @@ export class SettingsForm extends React.Component {
       currencySymbol: e.target.value
     });
   };
+
+  onMonthStartChange = e => {
+    this.setState({
+      monthStart: +e.target.value
+    });
+  }
 
   onNewAfterSaveChange = e => {
     this.setState({
@@ -78,7 +85,8 @@ export class SettingsForm extends React.Component {
       .startSaveSettings({
         defaultAccount: this.state.defaultAccount,
         newAfterSave: this.state.newAfterSave,
-        currencySymbol: this.state.currencySymbol
+        currencySymbol: this.state.currencySymbol,
+        monthStart: this.state.monthStart
       })
       .then(() => {
         this.setState({ updateTotals: false });
@@ -135,6 +143,20 @@ export class SettingsForm extends React.Component {
               value={this.state.currencySymbol}
               onChange={this.onCurrencySymbolChange}
             />
+          </div>
+          <div>
+            <label>Default Month Start</label>
+            <select
+              className="select-inline"
+              value={this.state.monthStart}
+              onChange={this.onMonthStartChange}
+            >
+              <option value={undefined}></option>
+              {
+                ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31']
+                  .map(d => (<option key={d} value={+d}>{d}</option>))
+              }
+            </select>
           </div>
           <div>
             <input

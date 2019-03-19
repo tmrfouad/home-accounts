@@ -1,14 +1,23 @@
-.text-input {
+.input {
   border: 1px solid $light-gray;
   font-size: $font-size-large;
   font-weight: 300;
   height: 48px;
   padding: $s-size;
+}
+
+.text-input {
+  @extend .input;
   width: 100%;
 }
 
 .select {
   @extend .text-input;
+}
+
+.select-inline {
+  @extend .input;
+  margin: $s-size;
 }
 
 .textarea {

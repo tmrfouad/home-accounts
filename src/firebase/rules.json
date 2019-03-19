@@ -32,7 +32,9 @@
           }
         },
         "transactions": {
-          ".indexOn": ["createdAt"],
+          ".indexOn": [
+            "createdAt"
+          ],
           "$transaction_id": {
             ".validate": "newData.hasChildren(['type', 'account', 'subject', 'amount', 'createdAt', 'notes'])",
             "type": {
@@ -92,7 +94,7 @@
           ".validate": "newData.isNumber()"
         },
         "settings": {
-          ".validate": "newData.hasChildren(['defaultAccount', 'newAfterSave', 'currencySymbol'])",
+          ".validate": "newData.hasChildren(['defaultAccount', 'newAfterSave', 'currencySymbol', 'monthStart'])",
           "defaultAccount": {
             ".validate": "newData.isString() && newData.val().length > 0"
           },
@@ -101,6 +103,9 @@
           },
           "currencySymbol": {
             ".validate": "newData.isString() && newData.val().length > 0"
+          },
+          "monthStart": {
+            ".validate": "newData.isNumber()"
           },
           "$other": {
             ".validate": false
