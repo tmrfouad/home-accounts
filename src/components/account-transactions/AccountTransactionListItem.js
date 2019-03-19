@@ -19,7 +19,8 @@ const AccountTransactionListItem = ({
   amount,
   createdAt,
   notes,
-  settings
+  settings,
+  filterAccId
 }) => (
   <div className="list-item">
     <div>
@@ -43,29 +44,37 @@ const AccountTransactionListItem = ({
       <span
         className={
           'list-item__icon ' +
-          (type === TransactionTypes.In
+          (type === TransactionTypes.In ||
+          (type === TransactionTypes.Transfer && toAccount.id === filterAccId)
             ? 'list-item__icon--in'
-            : type === TransactionTypes.Out
-              ? 'list-item__icon--out'
-              : 'list-item__icon--transfer')
+            : type === TransactionTypes.Out ||
+              (type === TransactionTypes.Transfer && account.id === filterAccId)
+            ? 'list-item__icon--out'
+            : '')
         }
       >
-        {type === TransactionTypes.In && (
+        {(type === TransactionTypes.In ||
+          (type === TransactionTypes.Transfer &&
+            toAccount.id === filterAccId)) && (
           <FontAwesomeIcon className="font-awesome-icon" icon={faFileImport} />
         )}
-        {type === TransactionTypes.Out && (
+        {(type === TransactionTypes.Out ||
+          (type === TransactionTypes.Transfer &&
+            account.id === filterAccId)) && (
           <FontAwesomeIcon className="font-awesome-icon" icon={faFileExport} />
-        )}
-        {type === TransactionTypes.Transfer && (
-          <FontAwesomeIcon className="font-awesome-icon" icon={faExchangeAlt} />
         )}
       </span>
     </h3>
   </div>
 );
 
+// {type === TransactionTypes.Transfer && (
+//   <FontAwesomeIcon className="font-awesome-icon" icon={faExchangeAlt} />
+// )}
+
 const mapStateToProps = state => ({
-  settings: state.settings
+  settings: state.settings,
+  filterAccId: state.accTransFilters.accountId
 });
 
 export default connect(mapStateToProps)(AccountTransactionListItem);
