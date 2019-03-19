@@ -13,6 +13,7 @@ import {
   startSetAccTransTotal
 } from '../../actions/account-transactions';
 import AutoComplete from '../AutoComplete';
+import moment from 'moment';
 
 export class AccountTransactionListFilters extends React.Component {
   state = {
@@ -48,8 +49,21 @@ export class AccountTransactionListFilters extends React.Component {
     this.props.startSetAccTransactions().then(() => {
       const accountId =
         this.props.defaultAccountId || this.props.filters.accountId;
+
+      let startDate;
+      let endDate;
+      if (this.props.monthStart) {
+        startDate = moment()
+          .subtract(this.props.monthStart <= 15 ? 0 : 1, 'month')
+          .startOf('month')
+          .add(this.props.monthStart - 1, 'day');
+        endDate = moment(startDate).add(1, 'month');
+      }
+
       if (accountId) {
         this.props.setAccountFilter(accountId);
+        this.props.setStartDate(startDate);
+        this.props.setEndDate(endDate);
         this.props.startSetAccTransTotal(accountId);
       }
     });
@@ -125,7 +139,8 @@ const mapStateToProps = state => ({
   accounts: state.accounts,
   filters: state.accTransFilters,
   styles: state.styles,
-  defaultAccountId: state.settings.defaultAccount
+  defaultAccountId: state.settings.defaultAccount,
+  monthStart: state.settings.monthStart
 });
 
 const mapDispatchToProps = dispatch => ({

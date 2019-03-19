@@ -26,7 +26,6 @@ export const saveSettings = settings => {
 export const startSaveSettings = settings => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    console.log(settings);
     return database.ref(`users/${uid}/settings`).update(settings, () => {
       dispatch(saveSettings(settings));
     });
