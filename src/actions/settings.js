@@ -1,6 +1,14 @@
 import database from '../firebase/firebase';
 
+const defaultSettings = {
+  currencySymbol: '',
+  defaultAccount: '',
+  monthStart: 1,
+  newAfterSave: false
+};
+
 export const setSettings = settings => {
+  settings = settings || defaultSettings;
   return {
     type: 'SET_SETTINGS',
     settings
