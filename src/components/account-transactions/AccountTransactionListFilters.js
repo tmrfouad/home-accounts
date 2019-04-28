@@ -48,7 +48,9 @@ export class AccountTransactionListFilters extends React.Component {
   componentDidMount() {
     this.props.startSetAccTransactions().then(() => {
       const accountId =
-        this.props.defaultAccountId || this.props.filters.accountId;
+        this.props.accountId ||
+        this.props.filters.accountId ||
+        this.props.defaultAccountId;
 
       let startDate;
       let endDate;

@@ -41,7 +41,10 @@ const AppRouter = () => (
         <PrivateRoute path="/subjectform/:id" component={SubjectForm} />
         <PrivateRoute path="/subjectform" component={SubjectForm} />
         <PrivateRoute path="/settings" component={SettingsForm} />
-        <PrivateRoute path="/acctrans" component={AccountTransactionsPage} />
+        <PrivateRoute
+          path="/acctrans/:id"
+          component={AccountTransactionsPage}
+        />
         <PublicRoute component={NotFoundPage} />
       </Switch>
     </div>

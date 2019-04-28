@@ -37,6 +37,12 @@
   }
 }
 
+.list-item--content {
+  align-items: center;
+  color: $dark-gray;
+  text-decoration: none;
+}
+
 .list-item--message {
   align-items: center;
   color: $gray;
