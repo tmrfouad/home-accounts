@@ -74,6 +74,7 @@ export const startSetAccounts = () => {
     const uid = getState().auth.uid;
     return database.ref(`users/${uid}/accounts`).once('value', snap => {
       if (!snap.val()) {
+        dispatch(setAccounts([]));
         return dispatch(
           startAddAccount({
             name: 'Cash'

@@ -45,6 +45,7 @@ const AppRouter = () => (
           path="/acctrans/:id"
           component={AccountTransactionsPage}
         />
+        <PrivateRoute path="/acctrans" component={AccountTransactionsPage} />
         <PublicRoute component={NotFoundPage} />
       </Switch>
     </div>

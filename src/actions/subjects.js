@@ -73,6 +73,7 @@ export const startSetSubjects = () => {
     const uid = getState().auth.uid;
     return database.ref(`users/${uid}/subjects`).once('value', snap => {
       if (!snap.val()) {
+        dispatch(setSubjects([]));
         return dispatch(startAddSubject({ name: 'Miscellaneous' }));
       }
 
